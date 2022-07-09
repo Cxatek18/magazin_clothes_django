@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block product_detail %}
+  <div class="container">
+    <div class="d-flex flex-row justify-content-around">
+      <div class="col-md-3 mt-4">
+        <img src="{{product.photo.all.0.image.url}}" height="550" alt="" class="">
+      </div>
+      <div class="col-md-6 mt-4">
+        <p class="fw-bolder text-uppercase text-center">{{product.product_name}}</p>
+        <p class="">
+          {{product.description}}
+        </p>
+        <div class="button_product_detail d-flex flex-row justify-content-around">
+          <a href="#" class="btn fw-bolder text-center text-uppercase" style="background-color:#FF6600; ">Купить в один клик</a>
+          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600;">В корзину</a>
+          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600;">В избранное</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

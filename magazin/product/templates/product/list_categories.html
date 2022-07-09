@@ -1,0 +1,7 @@
+<div class="list-group">
+  {%for item in categories%}
+    <a href="{%url 'category' item.pk%}" style="background-color:#FF6600; color: #000000; border-color: #FF6600;" class="list-group-item list-group-item-action active" aria-current="true">
+      {{item.category_name}}
+    </a>
+  {%endfor%}
+</div>
