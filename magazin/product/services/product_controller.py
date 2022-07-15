@@ -1,6 +1,6 @@
 class ProductController():
     """
-    Класс контролер для продуктов
+    Класс контролер для продуктов.
     """
 
     def creating_product(self, form_product, form_product_image):
