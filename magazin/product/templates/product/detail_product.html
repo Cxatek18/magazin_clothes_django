@@ -1,22 +1,62 @@
 {% extends "base.html" %}
 
 {% block product_detail %}
+
   <div class="container">
-    <div class="d-flex flex-row justify-content-around">
-      <div class="col-md-3 mt-4">
-        <img src="{{product.photo.all.0.image.url}}" height="550" alt="" class="">
+
+    <div class="d-flex flex-row justify-content-between">
+
+      <div class="col-md-3 mt-4 pr-10">
+        <img src="{{ product.prodimg.all.0.image.url }}" height="550" weight="350" alt="" class="">
       </div>
+
       <div class="col-md-6 mt-4">
-        <p class="fw-bolder text-uppercase text-center">{{product.product_name}}</p>
-        <p class="">
-          {{product.description}}
+
+        <h1 class="fw-bolder text-uppercase text-center">{{ product.product_name }}</h1>
+
+        <p class="fw-bolder text-uppercase fs-3 mt-5">Описание:</p>
+        <p class="text-center fs-4 mt-4 mb-4 border p-3 rounded" style="border-color: #FF6600;">
+          {{ product.description }}
         </p>
-        <div class="button_product_detail d-flex flex-row justify-content-around">
-          <a href="#" class="btn fw-bolder text-center text-uppercase" style="background-color:#FF6600; ">Купить в один клик</a>
-          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600;">В корзину</a>
-          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600;">В избранное</a>
+
+        <div class="price_product">
+
+          <p class="fw-bolder fs-3 text-uppercase">Цена: {{ product.price_now }}</p>
+
+          {% if product.discounted_price %}
+
+            <div class="text-uppercase text-center" role="alert">
+              
+            </div>
+            <div class="alert text-uppercase text-center" style="background-color:#FFCC99;" role="alert">
+              Скидка: {{ product.discounted_price }}<br>
+              <s class="mt-4">Старая цена: {{ product.full_price }}</s>
+            </div>
+            
+          {% else %}
+
+            <div class="alert text-uppercase text-center" style="background-color:#FFCC99;" role="alert">
+              no sale
+            </div>
+
+          {% endif %}
+
         </div>
+
+        <div class="color_product">
+          <p class="fw-bolder fs-3 text-uppercase">Цвета: </p>
+        </div>
+
+        <div class="button_product_detail d-flex flex-row justify-content-around">
+          <a href="#" class="btn fw-bolder text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
+          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600; color:#ffffff;">В корзину</a>
+          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600; color:#ffffff;">В избранное</a>
+        </div>
+
       </div>
+
     </div>
+
   </div>
+
 {% endblock %}

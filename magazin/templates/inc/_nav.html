@@ -1,11 +1,17 @@
 <nav class="navbar navbar-expand-lg" style="background-color:#FFCC99;">
+
   <div class="container-fluid">
+
     <a class="navbar-brand" href="#" style="color:#000000;">Navbar</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
         <li class="nav-item">
           <a class="nav-link active" style="color:#000000;" aria-current="page" href="{% url 'home' %}">Главная</a>
         </li>
@@ -24,14 +30,27 @@
         <li class="nav-item">
           <a class="nav-link" style="color:#000000;">Обратная связь</a>
         </li>
+
       </ul>
+
       <form class="d-flex" role="search">
+
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline" style="background:#FF6600;" type="submit">Search</button>
+        <button class="btn btn-outline" style="background:#FF6600; color:#ffffff;" type="submit">Search</button>
+
       </form>
+
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Личный кабинет</a>
+
+      {% if request.user.is_superuser %}
+        <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'create_product' %}">Админ панель</a>
+      {% endif %}
+      
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Корзина</a>
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Избранное</a>
+
     </div>
+
   </div>
+
 </nav>

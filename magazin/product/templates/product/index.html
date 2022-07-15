@@ -8,25 +8,55 @@
   {% include 'inc/_sidebar.html' %}
 {% endblock %}
 
-{% block content%}
-  {% for item in products %}
-    <div class="card" style="width: 18rem;">
-      <img src="{{item.photo.all.0.image.url}}" class="card-img-top" height="350" alt="...">
-      <div class="card-body">
-        <h5 class="card-title text-center text-uppercase">{{item.product_name}}</h5>
-        <p class="card-text">{{item.description|linebreaks|truncatewords:10}}</p>
-        <p class="text-center fw-bolder">{{item.price_now}} руб.</p>
-        {% if item.discounted_price %}
-          <p class="text-center fw-bolder"><s>Скидка: {{item.discounted_price}}</s></p>
-        {% endif %}
-        <div class="text-center">
-          <a href="{% url 'product_detail' item.slug %}" class="btn" style="background-color:#FF6600;">Подробнее</a>
-          <a href="#" class="btn" style="background-color:#FF6600;">В корзину</a>
+{% block content %}
+
+  <div class="d-flex justify-content-around product">
+
+    {% for item in products %}
+
+      <div class="card ml-1" style="width: 18rem;">
+
+        <img src="{{ item.prodimg.all.0.image.url }}" class="card-img-top" height="350" alt="...">
+
+        <div class="card-body">
+
+          <h5 class="card-title text-center text-uppercase">{{ item.product_name }}</h5>
+
+          <div class="product_description text-center">
+            <p class="card-text">{{ item.description|linebreaks|truncatewords:10 }}</p>
+          </div>
+
+          <div class="text-center">
+            <a href="{% url 'product_detail' item.slug %}" class="btn text-uppercase" style="background-color:#FF6600; color:#ffffff;">Подробнее</a>
+            <a href="#" class="btn text-uppercase" style="background-color:#FF6600; color:#ffffff;">В корзину</a>
+          </div>
+
+          <div class="text-center">
+            <a href="#" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
+          </div>
+
+          <p class="text-center fw-bolder mt-2">{{ item.price_now }} руб.</p>
+
+          {% if item.discounted_price %}
+
+            <div class="alert text-uppercase text-center" style="background-color:#FFCC99;" role="alert">
+              Скидка: {{ item.discounted_price }}
+            </div>
+
+          {% else %}
+
+            <div class="alert text-uppercase text-center" style="background-color:#FFCC99;" role="alert">
+              no sale
+            </div>
+
+          {% endif %}
+
         </div>
-        <div class="text-center">
-          <a href="#" class="btn mt-2 text-center" style="background-color:#FF6600; ">Купить в один клик</a>
-        </div>
+
       </div>
-    </div>
-  {% endfor %}
+
+    {% endfor %}
+
+  </div>
+
 {% endblock %}

@@ -5,7 +5,9 @@ from autoslug import AutoSlugField
 
 
 class Product(models.Model):
-
+    """
+    Модель продукта
+    """
     STATUS_PRODUCT = [
         ('Have', 'Есть в наличии'),
         ('Havent', 'Временно отсутвует'),
@@ -46,6 +48,12 @@ class Product(models.Model):
         null=True,
         validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
     )
+    full_price = models.IntegerField(
+        verbose_name='Полная стоимость',
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
+    )
     quantity = models.PositiveIntegerField(
         verbose_name='Товаров в наличии',
         default=0,
@@ -55,11 +63,6 @@ class Product(models.Model):
         choices=STATUS_PRODUCT,
         default='Havent',
         max_length=120,
-    )
-    photo = models.ManyToManyField(
-        'ProductImage',
-        verbose_name='Фотографии',
-        related_name='product_photos'
     )
     colors = models.ManyToManyField(
         'ProductColor',
@@ -79,6 +82,7 @@ class Product(models.Model):
             self.price_now = self.price_now - self.discounted_price
         else:
             self.price_now = self.price_now
+        self.full_price = self.price_now + self.discounted_price
         super().save(*args, **kwargs)
 
     class Meta:
@@ -88,6 +92,9 @@ class Product(models.Model):
 
 
 class Category(models.Model):
+    """
+    Модель категории
+    """
     category_name = models.CharField(
         verbose_name='Категория',
         max_length=120
@@ -110,20 +117,29 @@ class Category(models.Model):
 
 
 class ProductImage(models.Model):
+    """
+    Модель фото для продукта
+    """
+    products = models.ForeignKey(
+        Product,
+        related_name='prodimg',
+        on_delete=models.CASCADE,
+        null=True,
+    )
     image = models.ImageField(
         verbose_name='Фото',
         blank=True,
         upload_to='product/%Y/%m/%d/'
     )
 
-    def get_absolute_url(self):
-        return reverse('image_url', kwargs={'productimage_id': self.pk})
-
     def __str__(self):
         return str(self.image)
 
 
 class ProductColor(models.Model):
+    """
+    Модель цветов для продукта
+    """
     color = models.CharField(
         verbose_name='Цвет',
         max_length=255,
