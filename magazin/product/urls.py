@@ -3,6 +3,7 @@ from .views import (
     HomeProductView,
     ProductManagementView,
     CategoriesView,
+    BrandsView,
     ProductDetailView,
     ProductCreateView,
 )
@@ -12,6 +13,10 @@ urlpatterns = [
     path(
         'product/management_product/', ProductManagementView.as_view(),
         name='management_product',
+    ),
+    path(
+        'brand/v1/<int:brand_id>/',
+        BrandsView.as_view(), name='brand',
     ),
     path(
         'category/v1/<int:category_id>/',

@@ -41,10 +41,6 @@
       </form> -->
 
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Личный кабинет</a>
-
-      {% if request.user.is_superuser %}
-        <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'management_product' %}">Управление продуктами</a>
-      {% endif %}
       
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Корзина</a>
       <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Избранное</a>

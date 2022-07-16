@@ -14,7 +14,7 @@
 
     {% for item in products %}
 
-      <div class="card ml-1" style="width: 18rem;">
+      <div class="card row" style="width: 18rem;">
 
         <img src="{{ item.prodimg.all.0.image.url }}" class="card-img-top" height="350" alt="...">
 
@@ -22,8 +22,8 @@
 
           <h5 class="card-title text-center text-uppercase">{{ item.product_name }}</h5>
 
-          <div class="product_brand fw-bolder text-center">
-            <p class="card-text">Бренд: {{ item.brand_product }}</p>
+          <div class="product_brand text-uppercase fw-bolder text-center">
+            <p class="card-text" style="color:#FF6600;">Бренд: {{ item.brand_product }}</p>
           </div>
 
           <div class="product_description text-center">

@@ -1,0 +1,25 @@
+{% if request.user.is_superuser %}
+
+  <div class="text-end mt-2">
+
+    <a class="btn position-fixed" weight="200" style="background-color:#FF6600; color:#ffffff;" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+      Админ панель
+    </a>
+    
+  </div>
+  
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title text-uppercase" id="offcanvasExampleLabel">Админ панель</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <a class="nav-link active border rounded" aria-current="page" style="color:#000000; border-color:#FF6600;" href="{% url 'management_product' %}">Управление продуктами</a>
+    </div>
+
+  </div>
+
+{% endif %}

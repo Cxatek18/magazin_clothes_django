@@ -1,0 +1,17 @@
+<div class="list-group mt-3">
+
+  <p class="fw-bolder">Бренды</p>
+  
+  {% for item in brands %}
+
+    {% if item.brand_product.all.count > 0 %}
+    
+      <a href="{% url 'brand' item.pk %}" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;" class="list-group-item list-group-item-action active fw-bolder text-uppercase" aria-current="true">
+        {{ item.brand_name }}
+      </a>
+
+    {% endif %}
+
+  {% endfor %}
+  
+</div>

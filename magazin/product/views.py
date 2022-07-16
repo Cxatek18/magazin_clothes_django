@@ -3,11 +3,11 @@ from django.views.generic import (
     ListView,
     DetailView,
     View,
-    # TemplateView,
 )
 from .models import (
     Product,
     Category,
+    ProductBrand,
 )
 from .forms import (
     ProductForm,
@@ -46,13 +46,10 @@ class ProductManagementView(ListView):
         context['title_head'] = 'Управление продуктами'
         return context
 
-    # def get_queryset(self):
-    #     return Product.objects.filter(status="Have")
-
 
 class CategoriesView(ListView):
     """
-    Вывод списка всех каттегорий на главной странице
+    Вывод списка всех категорий на главной странице
     """
 
     model = Product
@@ -70,6 +67,29 @@ class CategoriesView(ListView):
     def get_queryset(self):
         return Product.objects.filter(
             category_id=self.kwargs['category_id'],
+        )
+
+
+class BrandsView(ListView):
+    """
+    Вывод списка всех брендов на главной странице
+    """
+
+    model = ProductBrand
+    context_object_name = 'products'
+    template_name = 'product/index.html'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_head'] = ProductBrand.objects.get(
+                                pk=self.kwargs['brand_id']
+                            )
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(
+            brand_product_id=self.kwargs['brand_id'],
         )
 
 

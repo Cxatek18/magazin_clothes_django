@@ -171,6 +171,11 @@ class ProductBrand(models.Model):
         populate_from='brand_name',
     )
 
+    def get_absolute_url(self):
+        return reverse(
+            'brand', kwargs={'slug_brand': self.slug_brand}
+        )
+
     def __str__(self):
         return self.brand_name
 

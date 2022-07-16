@@ -1,10 +1,16 @@
 <div class="list-group">
 
+  <p class="fw-bolder">Категории</p>
+
   {% for item in categories %}
 
-    <a href="{% url 'category' item.pk %}" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;" class="list-group-item list-group-item-action active fw-bolder text-uppercase" aria-current="true">
-      {{ item.category_name }}
-    </a>
+    {% if item.category_product.all.count > 0 %}
+
+      <a href="{% url 'category' item.pk %}" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;" class="list-group-item list-group-item-action active fw-bolder text-uppercase" aria-current="true">
+        {{ item.category_name }}
+      </a>
+
+    {% endif %}
 
   {% endfor %}
 
