@@ -12,7 +12,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
-            'product_name', 'category',
+            'product_name', 'category', 'brand_product',
             'description', 'price_now', 'discounted_price',
             'quantity', 'status',
         ]
@@ -23,6 +23,7 @@ class ProductForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'rows': 5}
             ),
             'category': forms.Select(attrs={'class': 'form-control'},),
+            'brand_product': forms.Select(attrs={'class': 'form-control'},),
             'price_now': forms.TextInput(attrs={'class': 'form-control'}),
             'discounted_price': forms.TextInput(
                 attrs={'class': 'form-control'}

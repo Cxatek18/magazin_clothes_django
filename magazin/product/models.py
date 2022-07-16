@@ -25,6 +25,12 @@ class Product(models.Model):
         on_delete=models.PROTECT,
         related_name='category_product',
     )
+    brand_product = models.ForeignKey(
+        'ProductBrand',
+        verbose_name='Бренд товара',
+        on_delete=models.PROTECT,
+        related_name='brand_product',
+    )
     created_at = models.DateTimeField(
         verbose_name='Дата создания',
         auto_now_add=True,
@@ -151,3 +157,23 @@ class ProductColor(models.Model):
 
     def __str__(self):
         return self.color
+
+
+class ProductBrand(models.Model):
+    """
+    Модель бренда товара
+    """
+    brand_name = models.CharField(
+        verbose_name='Название Бренда',
+        max_length=255,
+    )
+    slug_brand = AutoSlugField(
+        populate_from='brand_name',
+    )
+
+    def __str__(self):
+        return self.brand_name
+
+    class Meta:
+        verbose_name = 'Brand'
+        verbose_name_plural = 'Brands'

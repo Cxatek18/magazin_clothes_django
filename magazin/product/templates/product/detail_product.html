@@ -15,9 +15,14 @@
         <h1 class="fw-bolder text-uppercase text-center">{{ product.product_name }}</h1>
 
         <p class="fw-bolder text-uppercase fs-3 mt-5">Описание:</p>
-        <p class="text-center fs-4 mt-4 mb-4 border p-3 rounded" style="border-color: #FF6600;">
+        <p class="text-center fs-6 mt-4 mb-4 border p-3 rounded" style="border-color: #FF6600;">
           {{ product.description }}
         </p>
+
+        <p class="fw-bolder text-uppercase fs-3 mt-5">Бренд:</p>
+        <div class="alert text-uppercase text-center" style="background-color:#FF6600; color:#ffffff;" role="alert">
+          {{ product.brand_product }}
+        </div>
 
         <div class="price_product">
 

@@ -3,6 +3,7 @@ from django.views.generic import (
     ListView,
     DetailView,
     View,
+    # TemplateView,
 )
 from .models import (
     Product,
@@ -33,6 +34,20 @@ class HomeProductView(ListView):
 
     def get_queryset(self):
         return Product.objects.filter(status="Have")
+
+
+class ProductManagementView(ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'product/admin_templates/product_management.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_head'] = 'Управление продуктами'
+        return context
+
+    # def get_queryset(self):
+    #     return Product.objects.filter(status="Have")
 
 
 class CategoriesView(ListView):

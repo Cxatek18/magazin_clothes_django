@@ -4,6 +4,7 @@ from .models import (
     Category,
     ProductImage,
     ProductColor,
+    ProductBrand,
 )
 
 
@@ -60,7 +61,17 @@ class ProductColorAdmin(admin.ModelAdmin):
     )
 
 
+class ProductBrandAdmin(admin.ModelAdmin):
+    list_display = (
+        'brand_name', 'slug_brand',
+    )
+    list_display_links = (
+        'brand_name',
+    )
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
 admin.site.register(ProductColor, ProductColorAdmin)
+admin.site.register(ProductBrand, ProductBrandAdmin)

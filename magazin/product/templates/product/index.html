@@ -22,6 +22,10 @@
 
           <h5 class="card-title text-center text-uppercase">{{ item.product_name }}</h5>
 
+          <div class="product_brand fw-bolder text-center">
+            <p class="card-text">Бренд: {{ item.brand_product }}</p>
+          </div>
+
           <div class="product_description text-center">
             <p class="card-text">{{ item.description|linebreaks|truncatewords:10 }}</p>
           </div>
