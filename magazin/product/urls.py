@@ -6,6 +6,7 @@ from .views import (
     BrandsView,
     ProductDetailView,
     ProductCreateView,
+    UpdateProductView,
 )
 
 urlpatterns = [
@@ -29,5 +30,9 @@ urlpatterns = [
     path(
         'product/create-product/',
         ProductCreateView.as_view(), name='create_product',
+    ),
+    path(
+        'product/update-product/<int:pk>/',
+        UpdateProductView.as_view(), name='update_product',
     ),
 ]

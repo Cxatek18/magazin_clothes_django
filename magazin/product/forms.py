@@ -43,7 +43,7 @@ class ProductImageForm(forms.ModelForm):
         ]
 
         widgets = {
-            'products': forms.HiddenInput()
+            'products': forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):

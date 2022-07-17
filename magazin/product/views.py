@@ -8,6 +8,7 @@ from .models import (
     Product,
     Category,
     ProductBrand,
+    ProductImage,
 )
 from .forms import (
     ProductForm,
@@ -37,6 +38,10 @@ class HomeProductView(ListView):
 
 
 class ProductManagementView(ListView):
+    """
+    Вывод списка продуктов для управления.
+    (Управление продуктами)
+    """
     model = Product
     context_object_name = 'products'
     template_name = 'product/admin_templates/product_management.html'
@@ -133,5 +138,48 @@ class ProductCreateView(View):
             form_product, form_product_image
         ) is False:
             return redirect('create_product')
+        else:
+            return redirect('home')
+
+
+class UpdateProductView(View):
+    def get(self, request, *args, **kwargs):
+
+        """
+        Выставление информации о продукте в форму
+        """
+        product = Product.objects.get(
+            id=kwargs.get('pk')
+        )
+        product_image = ProductImage.objects.get(
+            products_id=kwargs.get('pk')
+        )
+
+        context = ProductController.putting_product_info_in_form(
+            product, ProductForm, ProductImageForm, product_image
+        )
+
+        return render(
+            request, 'product/update_product.html', context
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Обновление продукта
+        """
+        form_product = ProductForm(request.POST or None)
+        form_product_image = ProductImageForm(request.POST, request.FILES)
+        product = Product.objects.get(
+            id=kwargs.get('pk')
+        )
+        product_image = ProductImage.objects.get(
+            products_id=kwargs.get('pk')
+        )
+        prod_controller = ProductController()
+        if prod_controller.update_product(
+            form_product, form_product_image,
+            product, product_image
+        ) is False:
+            return redirect('update_product', product.id)
         else:
             return redirect('home')

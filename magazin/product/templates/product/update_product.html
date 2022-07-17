@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }} | Изменение продукта
+{% endblock %}
+
+{% block product_update %}
+
+  <div class="container-md">
+    <h1>Изменение продукта: {{product.product_name}}</h1>
+    <form action="{% url 'update_product' product.pk %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form_product.as_p }}
+
+      {% csrf_token %}
+      {{ form_product_image.as_p }}
+
+      <button type="submit" class="btn btn-primary btn-block">
+        Изменить продукт
+      </button>
+    </form>
+  </div>
+
+{% endblock %}
