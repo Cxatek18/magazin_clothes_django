@@ -44,7 +44,7 @@ class Product(models.Model):
         blank=True,
     )
     price_now = models.IntegerField(
-        verbose_name='Цена',
+        verbose_name='Цена в данный момент',
         blank=True,
         null=True,
     )
@@ -55,7 +55,7 @@ class Product(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
     )
     full_price = models.IntegerField(
-        verbose_name='Полная стоимость',
+        verbose_name='Цена',
         blank=True,
         null=True,
         validators=[MinValueValidator(0), MaxValueValidator(2147483647)]
@@ -85,10 +85,9 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         if self.discounted_price:
-            self.price_now = self.price_now - self.discounted_price
+            self.price_now = self.full_price - self.discounted_price
         else:
-            self.price_now = self.price_now
-        self.full_price = self.price_now + self.discounted_price
+            self.price_now = self.full_price
         super().save(*args, **kwargs)
 
     class Meta:
@@ -135,7 +134,8 @@ class ProductImage(models.Model):
     image = models.ImageField(
         verbose_name='Фото',
         blank=True,
-        upload_to='product/%Y/%m/%d/'
+        upload_to='product/%Y/%m/%d/',
+        default='product/system_img/default.jpg',
     )
 
     def __str__(self):

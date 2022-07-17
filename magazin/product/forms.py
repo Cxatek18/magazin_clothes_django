@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = [
             'product_name', 'category', 'brand_product',
-            'description', 'price_now', 'discounted_price',
+            'description', 'full_price', 'discounted_price',
             'quantity', 'status',
         ]
 
@@ -24,7 +24,7 @@ class ProductForm(forms.ModelForm):
             ),
             'category': forms.Select(attrs={'class': 'form-control'},),
             'brand_product': forms.Select(attrs={'class': 'form-control'},),
-            'price_now': forms.TextInput(attrs={'class': 'form-control'}),
+            'full_price': forms.TextInput(attrs={'class': 'form-control'},),
             'discounted_price': forms.TextInput(
                 attrs={'class': 'form-control'}
             ),
@@ -49,3 +49,4 @@ class ProductImageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProductImageForm, self).__init__(*args, **kwargs)
         self.fields['products'].required = False
+        self.fields['image'].required = 'product/system_img/default.jpg'

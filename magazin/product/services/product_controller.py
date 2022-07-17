@@ -15,7 +15,7 @@ class ProductController():
                 "category": prod.category,
                 "brand_product": prod.brand_product,
                 "description": prod.description,
-                "price_now": prod.price_now,
+                "full_price": prod.full_price,
                 "discounted_price": prod.discounted_price,
                 "quantity": prod.quantity,
                 "status": prod.status,
@@ -55,7 +55,7 @@ class ProductController():
                 'brand_product'
             ]
             product_obj.description = form_product.cleaned_data['description']
-            product_obj.price_now = form_product.cleaned_data['price_now']
+            product_obj.full_price = form_product.cleaned_data['full_price']
             product_obj.discounted_price = form_product.cleaned_data[
                 'discounted_price'
             ]
@@ -92,7 +92,7 @@ class ProductController():
                 'brand_product'
             ]
             product.description = form_product.cleaned_data['description']
-            product.price_now = form_product.cleaned_data['price_now']
+            product.full_price = form_product.cleaned_data['full_price']
             product.discounted_price = form_product.cleaned_data[
                 'discounted_price'
             ]
@@ -101,9 +101,12 @@ class ProductController():
             product.save()
 
             if form_img_prod.is_valid():
-                prod_img.image = form_img_prod.cleaned_data[
-                    'image'
-                ]
+                if form_img_prod.cleaned_data['image'] is not None:
+                    prod_img.image = form_img_prod.cleaned_data[
+                        'image'
+                    ]
+                else:
+                    prod_img.image = prod_img.image
                 prod_img.products = product
                 prod_img.save()
             else:
