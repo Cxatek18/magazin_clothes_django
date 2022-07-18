@@ -8,6 +8,7 @@ class Product(models.Model):
     """
     Модель продукта
     """
+
     STATUS_PRODUCT = [
         ('Have', 'Есть в наличии'),
         ('Havent', 'Временно отсутвует'),
@@ -100,6 +101,7 @@ class Category(models.Model):
     """
     Модель категории
     """
+
     category_name = models.CharField(
         verbose_name='Категория',
         max_length=120
@@ -125,6 +127,7 @@ class ProductImage(models.Model):
     """
     Модель фото для продукта
     """
+
     products = models.ForeignKey(
         Product,
         related_name='prodimg',
@@ -146,6 +149,7 @@ class ProductColor(models.Model):
     """
     Модель цветов для продукта
     """
+
     color = models.CharField(
         verbose_name='Цвет',
         max_length=255,
@@ -163,6 +167,7 @@ class ProductBrand(models.Model):
     """
     Модель бренда товара
     """
+
     brand_name = models.CharField(
         verbose_name='Название Бренда',
         max_length=255,

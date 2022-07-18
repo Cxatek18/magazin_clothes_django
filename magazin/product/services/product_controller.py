@@ -9,6 +9,7 @@ class ProductController():
         """
         Подставляем данные продукта в форму
         """
+
         form_product = form_prod(
             initial={
                 "product_name": prod.product_name,
@@ -83,6 +84,7 @@ class ProductController():
         стоит информация о продукте,
         затем обновляем продукт с новой информацией.
         """
+
         if form_product.is_valid():
             product.product_name = form_product.cleaned_data[
                 'product_name'
@@ -111,7 +113,6 @@ class ProductController():
                 prod_img.save()
             else:
                 return False
-
         else:
             return False
         return True

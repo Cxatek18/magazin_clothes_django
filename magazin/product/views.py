@@ -3,6 +3,7 @@ from django.views.generic import (
     ListView,
     DetailView,
     View,
+    DeleteView,
 )
 from .models import (
     Product,
@@ -42,6 +43,7 @@ class ProductManagementView(ListView):
     Вывод списка продуктов для управления.
     (Управление продуктами)
     """
+
     model = Product
     context_object_name = 'products'
     template_name = 'product/admin_templates/product_management.html'
@@ -115,6 +117,7 @@ class ProductCreateView(View):
         """
         Получение всех форм для создания продукта
         """
+
         form_class_product = ProductForm
         form_class_product_image = ProductImageForm
 
@@ -131,6 +134,7 @@ class ProductCreateView(View):
         """
         Создание продукта
         """
+
         form_product = ProductForm(request.POST or None)
         form_product_image = ProductImageForm(request.POST, request.FILES)
         prod_controller = ProductController()
@@ -148,6 +152,7 @@ class UpdateProductView(View):
         """
         Выставление информации о продукте в форму
         """
+
         product = Product.objects.get(
             id=kwargs.get('pk')
         )
@@ -160,13 +165,14 @@ class UpdateProductView(View):
         )
 
         return render(
-            request, 'product/update_product.html', context
+            request, 'product/admin_templates/update_product.html', context
         )
 
     def post(self, request, *args, **kwargs):
         """
         Обновление продукта
         """
+
         form_product = ProductForm(request.POST or None)
         form_product_image = ProductImageForm(request.POST, request.FILES)
         product = Product.objects.get(
@@ -183,3 +189,15 @@ class UpdateProductView(View):
             return redirect('update_product', product.id)
         else:
             return redirect('home')
+
+
+class DeleteProductView(DeleteView):
+    """
+    Удаление определённого продукта
+    """
+
+    model = Product
+    slug_url_kwarg = 'product_slug'
+    success_url = '/'
+    template_name = 'product/admin_templates/delete_product.html'
+    raise_exception = True

@@ -9,6 +9,7 @@ class ProductForm(forms.ModelForm):
     """
     Форма для продукта
     """
+
     class Meta:
         model = Product
         fields = [
@@ -36,6 +37,7 @@ class ProductImageForm(forms.ModelForm):
     """
     Форма для фото продукта
     """
+
     class Meta:
         model = ProductImage
         fields = [

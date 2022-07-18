@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | Удаление продукта
+{% endblock %}
+
+{% block product_delete %}
+
+  <h1 class="text-center">Удаление продукта</h1>
+
+  <div class="alert alert-danger col-4 text-center mx-auto">
+    Осторожно, после удаление данные нельзя будет вернуть или востановить.
+    Подумайте точно ли вы хотите удалить данный продукт.
+    Если хотите удалить то нажмите на кнопку "Удалить продукт".
+  </div>
+
+  <form method="post">
+
+    {% csrf_token %}
+
+    <button class="btn btn-danger mx-auto fw-bolder mb-3 d-grid gap-2 col-3" type="submit">Удалить продукт</button>
+
+  </form>
+
+{% endblock %}
