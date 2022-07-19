@@ -38,6 +38,26 @@ class ProductController():
 
         return context
 
+    @staticmethod
+    def product_submission_to_form_product_img(prod, form_img_prod):
+        """
+        Подставление товара для которого будет создано фото
+        """
+
+        form_product_image = form_img_prod(
+            initial={
+                "image": '',
+                "products": prod,
+            }
+        )
+
+        context = {
+            'form_product_image': form_product_image,
+            'product': prod,
+        }
+
+        return context
+
     def creating_product(self, form_product, form_product_image):
         """
         Метод создание продукта.
@@ -116,3 +136,25 @@ class ProductController():
         else:
             return False
         return True
+
+    def add_photo_product(self, form_product_image, prod):
+        """
+        Метод подставления нужной информации для создания
+        фото определённого продукта
+        """
+
+        if form_product_image.is_valid():
+            product_img_obj = form_product_image.save(commit=False)
+            product_img_obj.image = form_product_image.cleaned_data[
+                'image'
+            ]
+            product_img_obj.products = prod
+            product_img_obj.save()
+            return True
+        else:
+            return False
+
+    def delete_default_photo_when_adding_photo(self, list_photo):
+        if list_photo.count() > 1:
+            list_photo.get(image='product/system_img/default.jpg').delete()
+            return True

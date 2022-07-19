@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }} | Добавление фото для продукта
+{% endblock %}
+
+{% block add_photo_product %}
+  <h1 class="mb-5">Добавление фото для продукта{{product}}</h1>
+  <form action="{% url 'add_photo_product' product.slug %}" enctype="multipart/form-data" method="post">
+    {%csrf_token%}
+    {{form_product_image.as_p}}
+
+    <button type="submit" class="btn btn-primary btn-block">
+      Добавить новость
+    </button>
+  </form>
+{% endblock %}

@@ -201,3 +201,45 @@ class DeleteProductView(DeleteView):
     success_url = '/'
     template_name = 'product/admin_templates/delete_product.html'
     raise_exception = True
+
+
+class AddingProductPhoto(View):
+
+    def get(self, request, *args, **kwargs):
+        """
+        Выставление нужного продукта в форму добавления
+        фото к определённому продукту
+        """
+
+        product = Product.objects.get(
+            slug=kwargs.get('product_slug')
+        )
+
+        context = ProductController.product_submission_to_form_product_img(
+            product, ProductImageForm,
+        )
+
+        return render(
+            request, 'product/admin_templates/add_photo_product.html', context
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Добавление фото к определённому продукту
+        """
+
+        form_product_image = ProductImageForm(request.POST, request.FILES)
+        product = Product.objects.get(
+            slug=kwargs.get('product_slug')
+        )
+
+        prod_controller = ProductController()
+        if prod_controller.add_photo_product(
+            form_product_image, product
+        ) is False:
+            return redirect('add_photo_product', kwargs.get('product_slug'))
+        else:
+            prod_controller.delete_default_photo_when_adding_photo(
+                product.prodimg.all()
+            )
+            return redirect('home')

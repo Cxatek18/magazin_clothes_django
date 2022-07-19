@@ -8,6 +8,7 @@ from .views import (
     ProductCreateView,
     UpdateProductView,
     DeleteProductView,
+    AddingProductPhoto,
 )
 
 urlpatterns = [
@@ -39,5 +40,9 @@ urlpatterns = [
     path(
         'product/delete-product/<slug:product_slug>/',
         DeleteProductView.as_view(), name='delete_product',
+    ),
+    path(
+        'product/add-photo-product/<slug:product_slug>/',
+        AddingProductPhoto.as_view(), name='add_photo_product',
     ),
 ]
