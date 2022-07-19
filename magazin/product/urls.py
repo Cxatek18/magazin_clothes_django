@@ -9,6 +9,7 @@ from .views import (
     UpdateProductView,
     DeleteProductView,
     AddingProductPhoto,
+    CreateBrand,
 )
 
 urlpatterns = [
@@ -44,5 +45,9 @@ urlpatterns = [
     path(
         'product/add-photo-product/<slug:product_slug>/',
         AddingProductPhoto.as_view(), name='add_photo_product',
+    ),
+    path(
+        'product/create-brand/',
+        CreateBrand.as_view(), name='create_brand',
     ),
 ]

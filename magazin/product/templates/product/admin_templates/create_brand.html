@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }} | {{ title_head }}
+{% endblock %}
+
+{% block create_brand %}
+
+  <div class="container">
+
+    <h1 class="mb-5">Добавление бренда</h1>
+
+    <div class="btn-group" role="group" aria-label="Basic example">
+
+      <h4 class="text-center fw-bolder text-uppercase">Список всех брендов в данный момент:</h4>
+
+      {% for brand in list_all_brand %}
+      
+        <a href="{% url 'brand' brand.pk %}" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600; margin-left: 10px" class="btn fw-bolder text-uppercase rounded" aria-current="true">
+          {{ brand.brand_name }}
+        </a>
+
+      {% endfor %}
+
+    </div>
+
+    <form action="{% url 'create_brand' %}" method="post">
+      {%csrf_token%}
+      {{form.as_p}}
+
+      <button type="submit" class="btn btn-primary btn-block" style="background-color:#FF6600; border-color:#FF6600;">
+        Добавить бренд
+      </button>
+
+    </form>
+
+  </div>
+
+{% endblock %}

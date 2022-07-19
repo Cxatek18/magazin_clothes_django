@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
     View,
     DeleteView,
+    CreateView
 )
 from .models import (
     Product,
@@ -14,6 +16,7 @@ from .models import (
 from .forms import (
     ProductForm,
     ProductImageForm,
+    BrandProductCreateForm
 )
 from .services.product_controller import (
     ProductController,
@@ -47,6 +50,9 @@ class ProductManagementView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'product/admin_templates/product_management.html'
+    extra_context = {
+        'list_all_brand': ProductBrand.objects.all(),
+    }
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,3 +249,20 @@ class AddingProductPhoto(View):
                 product.prodimg.all()
             )
             return redirect('home')
+
+
+class CreateBrand(CreateView):
+    """
+    Создание бренда
+    """
+
+    model = ProductBrand
+    template_name = 'product/admin_templates/create_brand.html'
+    form_class = BrandProductCreateForm
+    context_object_name = 'prod_brand'
+    extra_context = {
+        'title_head': 'Добавление бренда',
+        'list_all_brand': ProductBrand.objects.all(),
+    }
+    success_url = reverse_lazy('home')
+    raise_exception = True

@@ -2,6 +2,7 @@ from django import forms
 from .models import (
     Product,
     ProductImage,
+    ProductBrand,
 )
 
 
@@ -52,3 +53,19 @@ class ProductImageForm(forms.ModelForm):
         super(ProductImageForm, self).__init__(*args, **kwargs)
         self.fields['products'].required = False
         self.fields['image'].required = 'product/system_img/default.jpg'
+
+
+class BrandProductCreateForm(forms.ModelForm):
+    """
+    Форма для создания бренда
+    """
+
+    class Meta:
+        model = ProductBrand
+        fields = [
+            'brand_name',
+        ]
+
+        widgets = {
+            'brand_name': forms.TextInput(attrs={'class': 'form-control'},),
+        }

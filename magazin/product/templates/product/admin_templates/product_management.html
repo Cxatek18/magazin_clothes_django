@@ -10,6 +10,26 @@
 
     <h1 class="h1 text-center fw-bolder text-uppercase mb-5">Управление продуктами</h1>
 
+    <!-- All brand -->
+
+    <div class="all_brand mb-4">
+
+      <p class="alert text-uppercase" style="background-color:#FFCC99;" role="alert">
+        Все бренды:
+      </p>
+  
+      <a href="{% url 'create_brand' %}" class="btn btn-sm mb-1 text-uppercase" style="background-color:#FF6600; color:#ffffff;">
+        <span>+</span> Добавить бренд
+      </a>
+
+      <ul class="list-group">
+        {% for brand in list_all_brand %}
+          <li class="list-group-item active mt-1" style="background-color:#FFCC99; border-color: #FF6600;">{{brand.brand_name}}</li>
+        {% endfor %}
+      </ul>
+
+    </div>
+
     <!-- Product Have Table -->
 
     <table class="table table-striped table-bordered">
