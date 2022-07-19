@@ -155,6 +155,14 @@ class ProductController():
             return False
 
     def delete_default_photo_when_adding_photo(self, list_photo):
+        """
+        При добавлении фото
+        если у нас стояло дефолтное фото то мы его находим
+        и удаляем и ставим новое которое добавили.
+        сделано для того чтоб если у продукта есть хоть какое то фото,
+        то нам не надо хранить дефолтное
+        """
+
         if list_photo.count() > 1:
             list_photo.get(image='product/system_img/default.jpg').delete()
             return True
