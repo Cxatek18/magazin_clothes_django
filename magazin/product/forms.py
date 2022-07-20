@@ -69,3 +69,15 @@ class BrandProductCreateForm(forms.ModelForm):
         widgets = {
             'brand_name': forms.TextInput(attrs={'class': 'form-control'},),
         }
+
+
+class ProductImageUpdateForm(forms.ModelForm):
+    """
+    Форма для обновления фото продукта
+    """
+
+    class Meta:
+        model = ProductImage
+        fields = [
+            'image',
+        ]

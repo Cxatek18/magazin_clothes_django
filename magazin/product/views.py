@@ -5,7 +5,8 @@ from django.views.generic import (
     DetailView,
     View,
     DeleteView,
-    CreateView
+    CreateView,
+    UpdateView,
 )
 from .models import (
     Product,
@@ -16,7 +17,8 @@ from .models import (
 from .forms import (
     ProductForm,
     ProductImageForm,
-    BrandProductCreateForm
+    BrandProductCreateForm,
+    ProductImageUpdateForm,
 )
 from .services.product_controller import (
     ProductController,
@@ -162,12 +164,12 @@ class UpdateProductView(View):
         product = Product.objects.get(
             id=kwargs.get('pk')
         )
-        product_image = ProductImage.objects.get(
+        product_image = ProductImage.objects.filter(
             products_id=kwargs.get('pk')
         )
 
         context = ProductController.putting_product_info_in_form(
-            product, ProductForm, ProductImageForm, product_image
+            product, ProductForm, ProductImageForm, product_image[0]
         )
 
         return render(
@@ -244,10 +246,10 @@ class AddingProductPhoto(View):
             form_product_image, product
         ) is False:
             return redirect('add_photo_product', kwargs.get('product_slug'))
-        else:
             prod_controller.delete_default_photo_when_adding_photo(
                 product.prodimg.all()
             )
+        else:
             return redirect('home')
 
 
@@ -266,3 +268,36 @@ class CreateBrand(CreateView):
     }
     success_url = reverse_lazy('home')
     raise_exception = True
+
+
+class ListProductImageView(View):
+    """
+    Вывод списка всех картинок товара
+    """
+
+    def get(self, request, *args, **kwargs):
+        product = Product.objects.get(
+            slug=kwargs.get('product_slug')
+        )
+
+        context = {
+            "photos": product.prodimg.all()
+        }
+
+        return render(
+            request, 'product/admin_templates/list_photo_product.html', context
+        )
+
+
+class UpdateProductImageView(UpdateView):
+    """
+    Обновление определённого фото
+    определённого продукта
+    """
+
+    model = ProductImage
+    template_name = 'product/admin_templates/uprdate_photo_product.html'
+    form_class = ProductImageUpdateForm
+    context_object_name = 'photo'
+    raise_exception = True
+    success_url = reverse_lazy('home')

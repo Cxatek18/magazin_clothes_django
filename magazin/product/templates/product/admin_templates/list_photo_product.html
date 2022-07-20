@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+
+{% block title %}
+  {{ block.super }} | Фотографии продукта
+{% endblock %}
+
+{% block list_img_product %}
+
+  <div class="container">
+
+    <h1 class="h1 text-center fw-bolder text-uppercase mb-5">Фото продукта</h1>
+
+    <div class="photos_product row">
+      {% for img in photos %}
+        <div class="img-product d-flex p-3 border" style="width: 350px; height: 100%; flex-direction: column; align-items: center; margin-right: 10px;">
+
+          <img src="{{ img.image.url }}" style="object-fit: cover;" class="card-img-top" height="100%" width="100%" alt="...">
+
+          <div class="text-center" style="width:100px;">
+            <a href="{% url 'update_photo_product' img.pk %}" class="btn btn-sm mt-1 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff; width:100px;">Поменять</a>
+          </div>
+
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+{% endblock %}

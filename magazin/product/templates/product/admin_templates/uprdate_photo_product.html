@@ -1,0 +1,25 @@
+{% extends "base.html"%}
+
+{% block title %}
+  {{ block.super }} | Обновление продукта
+{% endblock %}
+
+{% block update_photo %}
+
+  <div class="container">
+
+    <h1 class="h1 text-center fw-bolder text-uppercase mb-5">Изменение фото</h1>
+
+    <form action="{% url 'update_photo_product' photo.pk %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" class="btn btn-primary btn-block">
+        Изменить Фото
+      </button>
+      
+    </form>
+
+  </div>
+
+{% endblock %}

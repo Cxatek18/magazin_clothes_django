@@ -7,7 +7,23 @@
     <div class="d-flex flex-row justify-content-between">
 
       <div class="col-md-3 mt-4 pr-10">
+
         <img src="{{ product.prodimg.all.0.image.url }}" height="550" weight="350" alt="" class="">
+
+        {% if product.prodimg.all.count > 1 %}
+
+          <div class="list_img_product row" style="width: 150px; height: 250px; flex-direction: column; align-items: center">
+
+            {% for img in product.prodimg.all %}
+              <a href="{{ img.image.url }}">
+                <img src="{{ img.image.url }}" style="object-fit: cover;" height="100%" width="100%" class="img-thumbnail" alt="img">
+              </a>
+            {% endfor %}
+
+          </div>
+
+        {% endif %}
+
       </div>
 
       <div class="col-md-6 mt-4">
