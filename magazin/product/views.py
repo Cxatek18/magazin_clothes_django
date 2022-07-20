@@ -315,6 +315,19 @@ class UpdateProductImageView(UpdateView):
     success_url = reverse_lazy('home')
 
 
-class DeliveryAndPayment(TemplateView):
+class DeliveryAndPaymentView(TemplateView):
+    """
+    Страница доставки и оплаты
+    """
+
     template_name = 'product/delevery_and_payment.html'
     extra_context = {'title_head': 'Доставка и оплата'}
+
+
+class ExchangeAndRefund(TemplateView):
+    """
+    Страница обмена и возврата
+    """
+
+    template_name = 'product/exchange_and_refund.html'
+    extra_context = {'title_head': 'Обмен и возврат'}

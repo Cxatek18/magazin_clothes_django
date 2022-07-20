@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | {{ title_head }}
+{% endblock %}
+
+{% block exchange_and_refund %}
+
+  <div class="container">
+      
+    <h1 class="mb-5 text-center fw-bolder text-uppercase">Обмен и возврат</h1>
+    <p class="alert text-uppercase text-center fs-3" style="background-color:#FFCC99;" role="alert">
+      Обмен и возврат делаем, напишите нам на почту или напишете через сайт в вкладке обратная связь
+    </p>
+
+    <div class="btn_exchange_and_refund text-center">
+      <a href="#" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;" class="btn active fw-bolder text-uppercase" aria-current="true">
+        Обратная связь
+      </a>
+    </div>
+
+  </div>
+
+{% endblock %}

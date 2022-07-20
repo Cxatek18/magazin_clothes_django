@@ -12,7 +12,8 @@ from .views import (
     CreateBrand,
     ListProductImageView,
     UpdateProductImageView,
-    DeliveryAndPayment,
+    DeliveryAndPaymentView,
+    ExchangeAndRefund,
 )
 
 urlpatterns = [
@@ -63,6 +64,10 @@ urlpatterns = [
     ),
     path(
         'product/delevery-and-payment/',
-        DeliveryAndPayment.as_view(), name='delevery_and_payment',
+        DeliveryAndPaymentView.as_view(), name='delevery_and_payment',
+    ),
+    path(
+        'product/exchange-and-refund/',
+        ExchangeAndRefund.as_view(), name='exchange_and_refund',
     ),
 ]
