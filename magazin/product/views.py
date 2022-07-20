@@ -34,13 +34,24 @@ class HomeProductView(ListView):
     context_object_name = 'products'
     template_name = 'product/index.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title_head'] = 'Главная страница'
-        return context
+    def get(self, request, *args, **kwargs):
+        # Поиск по названию. как лайв поиск только через кнопку
+        search_query = request.GET.get('search', '')
+        if search_query:
+            product = Product.objects.filter(
+                product_name__icontains=search_query,
+                status="Have",
+            )
+        else:
+            product = Product.objects.all()
 
-    def get_queryset(self):
-        return Product.objects.filter(status="Have")
+        context = (
+            {
+                "products": product,
+                "title_head": 'Главная страница'
+            }
+        )
+        return render(request, 'product/index.html', context)
 
 
 class ProductManagementView(ListView):
