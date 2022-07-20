@@ -16,7 +16,7 @@
           <a class="nav-link active" style="color:#000000;" aria-current="page" href="{% url 'home' %}">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="color:#000000;" href="#">Доставка и оплата</a>
+          <a class="nav-link" style="color:#000000;" href="{% url 'delevery_and_payment' %}">Доставка и оплата</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" style="color:#000000;" href="#">Подарочные сертефикаты</a>
@@ -35,8 +35,8 @@
 
       <form class="d-flex" role="search" action="{% url 'home' %}">
 
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-        <button class="btn btn-outline" style="background:#FF6600; color:#ffffff;" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Поиск товара" aria-label="Search" name="search">
+        <button class="btn btn-outline" style="background:#FF6600; color:#ffffff;" type="submit">Поиск</button>
 
       </form>
 

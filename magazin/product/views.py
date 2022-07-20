@@ -7,6 +7,7 @@ from django.views.generic import (
     DeleteView,
     CreateView,
     UpdateView,
+    TemplateView,
 )
 from .models import (
     Product,
@@ -312,3 +313,8 @@ class UpdateProductImageView(UpdateView):
     context_object_name = 'photo'
     raise_exception = True
     success_url = reverse_lazy('home')
+
+
+class DeliveryAndPayment(TemplateView):
+    template_name = 'product/delevery_and_payment.html'
+    extra_context = {'title_head': 'Доставка и оплата'}

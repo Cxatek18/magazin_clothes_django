@@ -12,6 +12,7 @@ from .views import (
     CreateBrand,
     ListProductImageView,
     UpdateProductImageView,
+    DeliveryAndPayment,
 )
 
 urlpatterns = [
@@ -59,5 +60,9 @@ urlpatterns = [
     path(
         'product/update-photo-product/<int:pk>/',
         UpdateProductImageView.as_view(), name='update_photo_product',
+    ),
+    path(
+        'product/delevery-and-payment/',
+        DeliveryAndPayment.as_view(), name='delevery_and_payment',
     ),
 ]
