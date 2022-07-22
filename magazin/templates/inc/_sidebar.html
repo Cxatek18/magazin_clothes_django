@@ -1,3 +1,22 @@
 {% load product_tags %}
 {% show_categories %}
 {% show_brand_product %}
+
+{% block filters %}
+
+  <div class="btn-filter text-center">
+
+    <p class="fw-bolder mt-3">Фильтрация товаров</p>
+
+    <form method="GET">
+      {{ filter.form.as_p }}
+      
+        <button type="submit" class="btn btn-outline" style="background:#FF6600; color:#ffffff;">Поиск</button>
+      
+    </form>
+
+    <a class="btn btn-outline mt-2" style="background:#FF6600; color:#ffffff;" aria-current="page" href="{% url 'home' %}">Очистить фильтр</a>
+
+  </div>
+
+{% endblock %}

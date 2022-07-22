@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  {{ block.super }} | {{ title_head }}
+  {{ block.super }} | Главная страница
 {% endblock %}
 
 {% block sidebar %}
@@ -12,7 +12,7 @@
 
   <div class="d-flex justify-content-between flex-wrap product" id="product">
 
-    {% for item in products %}
+    {% for item in filter.qs %}
 
       <div class="card row mt-2" style="width: 18rem;">
 

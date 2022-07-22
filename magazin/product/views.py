@@ -24,6 +24,9 @@ from .forms import (
 from .services.product_controller import (
     ProductController,
 )
+from .filters import (
+    ProductFilter,
+)
 
 
 class HomeProductView(ListView):
@@ -32,27 +35,18 @@ class HomeProductView(ListView):
     """
 
     model = Product
-    context_object_name = 'products'
     template_name = 'product/index.html'
 
-    def get(self, request, *args, **kwargs):
-        # Поиск по названию. как лайв поиск только через кнопку
-        search_query = request.GET.get('search', '')
-        if search_query:
-            product = Product.objects.filter(
-                product_name__icontains=search_query,
-                status="Have",
-            )
-        else:
-            product = Product.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        context = (
-            {
-                "products": product,
-                "title_head": 'Главная страница'
-            }
+        # фильтр товаров
+        context['filter'] = ProductFilter(
+            self.request.GET, queryset=self.get_queryset().filter(
+                status="Have"
+            )
         )
-        return render(request, 'product/index.html', context)
+        return context
 
 
 class ProductManagementView(ListView):
@@ -86,9 +80,22 @@ class CategoriesView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title_head'] = Category.objects.get(
+
+        title_head = Category.objects.get(
                                 pk=self.kwargs['category_id']
                             )
+
+        # фильтр товаров
+        filter_prod = ProductFilter(
+            self.request.GET, queryset=self.get_queryset().filter(
+                status="Have"
+            )
+        )
+
+        context = {
+            'title_head': title_head,
+            'filter': filter_prod,
+        }
         return context
 
     def get_queryset(self):
@@ -109,9 +116,23 @@ class BrandsView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title_head'] = ProductBrand.objects.get(
+
+        title_head = ProductBrand.objects.get(
                                 pk=self.kwargs['brand_id']
                             )
+
+        # фильтр товаров
+        filter_prod = ProductFilter(
+            self.request.GET, queryset=self.get_queryset().filter(
+                status="Have"
+            )
+        )
+
+        context = {
+            'title_head': title_head,
+            'filter': filter_prod,
+        }
+
         return context
 
     def get_queryset(self):
