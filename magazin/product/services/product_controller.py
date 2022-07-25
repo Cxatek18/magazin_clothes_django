@@ -19,6 +19,8 @@ class ProductController():
                 "full_price": prod.full_price,
                 "discounted_price": prod.discounted_price,
                 "quantity": prod.quantity,
+                "gender": prod.gender,
+                "colors": prod.colors.all(),
                 "status": prod.status,
             }
         )
@@ -82,7 +84,12 @@ class ProductController():
             ]
             product_obj.quantity = form_product.cleaned_data['quantity']
             product_obj.status = form_product.cleaned_data['status']
+            product_obj.gender = form_product.cleaned_data['gender']
             product_obj.save()
+            product_obj.colors.set(
+                form_product.cleaned_data['colors']
+            )
+            form_product.save_m2m()
 
             if form_product_image.is_valid():
                 product_img_obj = form_product_image.save(commit=False)
@@ -120,15 +127,31 @@ class ProductController():
             ]
             product.quantity = form_product.cleaned_data['quantity']
             product.status = form_product.cleaned_data['status']
+            product.gender = form_product.cleaned_data['gender']
+            product.colors.set(
+                form_product.cleaned_data['colors']
+            )
             product.save()
 
             if form_img_prod.is_valid():
-                if form_img_prod.cleaned_data['image'] is not None:
-                    prod_img.image = form_img_prod.cleaned_data[
-                        'image'
-                    ]
+
+                # Решить проблему!!!!!!!!!!!!
+
+                print(prod_img.image)
+                form_data = form_img_prod.cleaned_data['image']
+                default_img = 'product/system_img/default.jpg'
+                if form_data:
+                    prod_img.image = form_data
                 else:
                     prod_img.image = prod_img.image
+
+                # if prod_img.image != 'product/system_img/default.jpg':
+                #     prod_img.image = prod_img.image
+                # else:
+                #     prod_img.image = form_img_prod.cleaned_data[
+                #         'image'
+                #     ]
+
                 prod_img.products = product
                 prod_img.save()
             else:

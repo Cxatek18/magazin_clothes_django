@@ -17,9 +17,13 @@
       {% csrf_token %}
       {{ form_product_image.as_p }}
 
-      <button type="submit" class="btn btn-primary btn-block">
-        Изменить продукт
-      </button>
+      <div class="btn_update_product text-center">
+
+        <button type="submit" class="btn btn-primary btn-block" style="background-color:#FF6600; border-color:#FF6600;">
+          Изменить продукт
+        </button>
+        
+      </div>
       
     </form>
 

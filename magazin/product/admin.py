@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'product_name', 'slug', 'category',
         'updated_at', 'created_at',
-        'price_now', 'status', 'quantity'
+        'price_now', 'status', 'quantity', 'gender'
     )
     list_display_links = (
         'id', 'product_name',
@@ -20,10 +20,16 @@ class ProductAdmin(admin.ModelAdmin):
     )
     search_fields = (
         'id', 'product_name',
-        'slug',
+        'slug', 'gender'
     )
-    list_editable = ('status', 'quantity')
-    list_filter = ('status', 'category')
+    list_editable = (
+        'status', 'quantity',
+        'gender'
+    )
+    list_filter = (
+        'status', 'category',
+        'gender',
+    )
     readonly_fields = ('created_at',
                        'updated_at',)
     save_on_top = True

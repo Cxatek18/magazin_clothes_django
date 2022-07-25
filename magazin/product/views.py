@@ -219,13 +219,13 @@ class UpdateProductView(View):
         product = Product.objects.get(
             id=kwargs.get('pk')
         )
-        product_image = ProductImage.objects.get(
+        product_image = ProductImage.objects.filter(
             products_id=kwargs.get('pk')
         )
         prod_controller = ProductController()
         if prod_controller.update_product(
             form_product, form_product_image,
-            product, product_image
+            product, product_image[0]
         ) is False:
             return redirect('update_product', product.id)
         else:
@@ -278,10 +278,10 @@ class AddingProductPhoto(View):
         if prod_controller.add_photo_product(
             form_product_image, product
         ) is False:
-            return redirect('add_photo_product', kwargs.get('product_slug'))
             prod_controller.delete_default_photo_when_adding_photo(
                 product.prodimg.all()
             )
+            return redirect('add_photo_product', kwargs.get('product_slug'))
         else:
             return redirect('home')
 

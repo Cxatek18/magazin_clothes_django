@@ -14,6 +14,12 @@ class Product(models.Model):
         ('Havent', 'Временно отсутвует'),
     ]
 
+    GENDER_PRODUCT = [
+        ('Male', 'Мужчины'),
+        ('Female', 'Женщины'),
+        ('Unisex', 'Унисекс'),
+    ]
+
     product_name = models.CharField(
         verbose_name='Название товара',
         max_length=255,
@@ -25,6 +31,12 @@ class Product(models.Model):
         'Category', verbose_name='Категория',
         on_delete=models.PROTECT,
         related_name='category_product',
+    )
+    gender = models.CharField(
+        verbose_name='Гендер',
+        choices=GENDER_PRODUCT,
+        default='Unisex',
+        max_length=120,
     )
     brand_product = models.ForeignKey(
         'ProductBrand',

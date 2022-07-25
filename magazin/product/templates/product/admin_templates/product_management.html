@@ -55,6 +55,7 @@
           <th scope="col">Полная стоимость товара</th>
           <th scope="col">Кол-во товара в наличии</th>
           <th scope="col">Статус товара</th>
+          <th scope="col">Гендер</th>
           <th scope="col">Действия</th>
         </tr>
 
@@ -81,6 +82,7 @@
               <td>{{ product.full_price }}</td>
               <td>{{ product.quantity }}</td>
               <td>{{ product.status }}</td>
+              <td>{{ product.gender }}</td>
               <td>
                 <div class="text-center">
                   <a href="{% url 'product_detail' product.slug %}" class="btn btn-sm mt-1 text-uppercase" style="background-color:#FF6600; color:#ffffff; width:100px;">Подробнее</a> 
