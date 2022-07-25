@@ -20,6 +20,7 @@ from .forms import (
     ProductImageForm,
     BrandProductCreateForm,
     ProductImageUpdateForm,
+    ProductUpdateImageForm,
 )
 from .services.product_controller import (
     ProductController,
@@ -202,7 +203,7 @@ class UpdateProductView(View):
         )
 
         context = ProductController.putting_product_info_in_form(
-            product, ProductForm, ProductImageForm, product_image[0]
+            product, ProductForm, ProductUpdateImageForm, product_image[0]
         )
 
         return render(
@@ -215,7 +216,9 @@ class UpdateProductView(View):
         """
 
         form_product = ProductForm(request.POST or None)
-        form_product_image = ProductImageForm(request.POST, request.FILES)
+        form_product_image = ProductUpdateImageForm(
+            request.POST, request.FILES
+        )
         product = Product.objects.get(
             id=kwargs.get('pk')
         )

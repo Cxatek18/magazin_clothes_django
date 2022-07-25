@@ -50,6 +50,7 @@ class ProductImageForm(forms.ModelForm):
         ]
 
         widgets = {
+            'image': forms.FileInput(),
             'products': forms.HiddenInput(),
         }
 
@@ -57,6 +58,26 @@ class ProductImageForm(forms.ModelForm):
         super(ProductImageForm, self).__init__(*args, **kwargs)
         self.fields['products'].required = False
         self.fields['image'].required = 'product/system_img/default.jpg'
+
+
+class ProductUpdateImageForm(forms.ModelForm):
+    """
+    Форма для фото продукта при изменении продукта
+    """
+
+    class Meta:
+        model = ProductImage
+        fields = [
+            'image', 'products',
+        ]
+
+        widgets = {
+            'products': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ProductUpdateImageForm, self).__init__(*args, **kwargs)
+        self.fields['products'].required = False
 
 
 class BrandProductCreateForm(forms.ModelForm):

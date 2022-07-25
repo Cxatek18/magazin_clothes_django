@@ -34,6 +34,7 @@ class ProductFilter(django_filters.FilterSet):
         field_name='gender',
         choices=CHOICES_GENDER,
         label='Пол',
+        empty_label='Не выбранно',
     )
 
     colors = django_filters.ModelMultipleChoiceFilter(

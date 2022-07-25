@@ -134,24 +134,14 @@ class ProductController():
             product.save()
 
             if form_img_prod.is_valid():
-
-                # Решить проблему!!!!!!!!!!!!
-
-                print(prod_img.image)
-                form_data = form_img_prod.cleaned_data['image']
-                default_img = 'product/system_img/default.jpg'
-                if form_data:
-                    prod_img.image = form_data
+                default_img_prod = 'product/system_img/default.jpg'
+                if form_img_prod.cleaned_data['image'] is not False:
+                    if form_img_prod.cleaned_data['image'] != default_img_prod:
+                        prod_img.image = form_img_prod.cleaned_data['image']
+                    else:
+                        prod_img.image = prod_img.image
                 else:
-                    prod_img.image = prod_img.image
-
-                # if prod_img.image != 'product/system_img/default.jpg':
-                #     prod_img.image = prod_img.image
-                # else:
-                #     prod_img.image = form_img_prod.cleaned_data[
-                #         'image'
-                #     ]
-
+                    prod_img.image = default_img_prod
                 prod_img.products = product
                 prod_img.save()
             else:
