@@ -16,7 +16,7 @@ class ProductForm(forms.ModelForm):
         fields = [
             'product_name', 'category', 'brand_product',
             'description', 'full_price', 'discounted_price',
-            'gender', 'quantity', 'status', 'colors'
+            'gender', 'quantity', 'status', 'colors', 'product_size'
         ]
 
         widgets = {
@@ -33,6 +33,9 @@ class ProductForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'},),
             'gender': forms.Select(attrs={'class': 'form-control'},),
             'colors': forms.SelectMultiple(
+                attrs={'class': 'form-control', 'size': 7},
+            ),
+            'product_size': forms.SelectMultiple(
                 attrs={'class': 'form-control', 'size': 7},
             ),
         }

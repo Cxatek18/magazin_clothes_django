@@ -21,6 +21,7 @@ class ProductController():
                 "quantity": prod.quantity,
                 "gender": prod.gender,
                 "colors": prod.colors.all(),
+                "product_size": prod.product_size.all(),
                 "status": prod.status,
             }
         )
@@ -89,6 +90,9 @@ class ProductController():
             product_obj.colors.set(
                 form_product.cleaned_data['colors']
             )
+            product_obj.product_size.set(
+                form_product.cleaned_data['product_size']
+            )
             form_product.save_m2m()
 
             if form_product_image.is_valid():
@@ -130,6 +134,9 @@ class ProductController():
             product.gender = form_product.cleaned_data['gender']
             product.colors.set(
                 form_product.cleaned_data['colors']
+            )
+            product.product_size.set(
+                form_product.cleaned_data['product_size']
             )
             product.save()
 

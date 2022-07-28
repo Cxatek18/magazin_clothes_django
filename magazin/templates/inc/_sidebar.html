@@ -5,19 +5,26 @@
 
 {% block filters %}
 
-  <div class="btn-filter text-center">
+  <div class="filter">
 
-    <p class="fw-bolder mt-3">Фильтрация товаров</p>
+    <p class="fw-bolder mt-3 text-center">Фильтрация товаров</p>
 
-    <form method="GET">
+    {% show_categories_size %}
+
+    <form method="GET" class="text-center">
+
       {{ filter.form|bootstrap }}
       
-        <button type="submit" class="btn btn-outline mt-2" style="background:#FF6600; color:#ffffff;">Поиск</button>
+        <button type="submit" class="btn btn-outline mt-2" style="background:#FF6600; color:#ffffff;">Поиск</button>      
       
     </form>
 
-    <a class="btn btn-outline mt-2" style="background:#FF6600; color:#ffffff;" aria-current="page" href="{% url 'home' %}">Очистить фильтр</a>
+    <div class="btn-filter text-center">
+      <a class="btn btn-outline mt-2" style="background:#FF6600; color:#ffffff;" aria-current="page" href="{% url 'home' %}">Очистить фильтр</a>
+    </div>
 
   </div>
 
 {% endblock %}
+
+

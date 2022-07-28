@@ -1,0 +1,23 @@
+<p class="text-center">Размеры</p>
+
+<div class="border text-left mb-2">
+
+  {% for item in category_sizes %}
+
+    <ul>
+
+      <p>{{item}}</p>
+
+      {% for size in  item.size_category.all %}
+
+        <ul style="color:#FF6600;">
+          <li>
+            <a href="{% url 'product_size' size.pk %}" style="color:#FF6600; text-decoration: none;">{{size}}</a>
+          </li>
+        </ul>
+
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+</div>

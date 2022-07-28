@@ -89,6 +89,12 @@ class Product(models.Model):
         related_name='product_colors',
         blank=True,
     )
+    product_size = models.ManyToManyField(
+        'ProductSize',
+        verbose_name='Размер продукта',
+        related_name='product_sizes',
+        blank=True,
+    )
 
     def __str__(self):
         return self.product_name
@@ -199,3 +205,33 @@ class ProductBrand(models.Model):
     class Meta:
         verbose_name = 'Brand'
         verbose_name_plural = 'Brands'
+
+
+class ProductSize(models.Model):
+    """
+    Модель размеров товара
+    """
+
+    size_value = models.CharField(
+        verbose_name='Размер',
+        max_length=255,
+        unique=True,
+    )
+    size_category = models.ForeignKey(
+        Category,
+        related_name='size_category',
+        on_delete=models.CASCADE,
+        null=True,
+    )
+
+    def get_absolute_url(self):
+        return reverse(
+            'size_value', kwargs={'size': self.pk}
+        )
+
+    def __str__(self):
+        return self.size_value
+
+    class Meta:
+        verbose_name = 'Product size'
+        verbose_name_plural = 'Product sizes'

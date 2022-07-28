@@ -5,6 +5,7 @@ from .models import (
     ProductImage,
     ProductColor,
     ProductBrand,
+    ProductSize,
 )
 
 
@@ -76,8 +77,18 @@ class ProductBrandAdmin(admin.ModelAdmin):
     )
 
 
+class ProductSizeAdmin(admin.ModelAdmin):
+    list_display = (
+        'size_value', 'size_category',
+    )
+    list_display_links = (
+        'size_value',
+    )
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
 admin.site.register(ProductColor, ProductColorAdmin)
 admin.site.register(ProductBrand, ProductBrandAdmin)
+admin.site.register(ProductSize, ProductSizeAdmin)

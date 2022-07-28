@@ -1,6 +1,6 @@
 import django_filters
 from .models import (
-    ProductColor
+    ProductColor,
 )
 
 
@@ -25,6 +25,7 @@ class ProductFilter(django_filters.FilterSet):
         field_name='price_now', lookup_expr='gt',
         label='Цена товара от',
     )
+
     price__lt = django_filters.NumberFilter(
         field_name='price_now', lookup_expr='lt',
         label='Цена товара до',

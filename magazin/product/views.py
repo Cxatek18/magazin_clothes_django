@@ -14,6 +14,7 @@ from .models import (
     Category,
     ProductBrand,
     ProductImage,
+    ProductSize,
 )
 from .forms import (
     ProductForm,
@@ -42,11 +43,16 @@ class HomeProductView(ListView):
         context = super().get_context_data(**kwargs)
 
         # фильтр товаров
-        context['filter'] = ProductFilter(
+        filter_prod = ProductFilter(
             self.request.GET, queryset=self.get_queryset().filter(
                 status="Have"
             )
         )
+
+        context = {
+            'filter': filter_prod,
+        }
+
         return context
 
 
@@ -83,8 +89,8 @@ class CategoriesView(ListView):
         context = super().get_context_data(**kwargs)
 
         title_head = Category.objects.get(
-                                pk=self.kwargs['category_id']
-                            )
+            pk=self.kwargs['category_id']
+        )
 
         # фильтр товаров
         filter_prod = ProductFilter(
@@ -119,8 +125,8 @@ class BrandsView(ListView):
         context = super().get_context_data(**kwargs)
 
         title_head = ProductBrand.objects.get(
-                                pk=self.kwargs['brand_id']
-                            )
+            pk=self.kwargs['brand_id']
+        )
 
         # фильтр товаров
         filter_prod = ProductFilter(
@@ -139,6 +145,42 @@ class BrandsView(ListView):
     def get_queryset(self):
         return Product.objects.filter(
             brand_product_id=self.kwargs['brand_id'],
+        )
+
+
+class SizeProductView(ListView):
+    """
+    Вывод списка всех товаров по размеру
+    """
+
+    model = Product
+    context_object_name = 'products'
+    template_name = 'product/index.html'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        title_head = ProductSize.objects.get(
+            pk=self.kwargs['size_id']
+        )
+
+        # фильтр товаров
+        filter_prod = ProductFilter(
+            self.request.GET, queryset=self.get_queryset().filter(
+                status="Have"
+            )
+        )
+
+        context = {
+            'title_head': title_head,
+            'filter': filter_prod,
+        }
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(
+            product_size__id=self.kwargs['size_id'],
         )
 
 

@@ -14,6 +14,7 @@ from .views import (
     UpdateProductImageView,
     DeliveryAndPaymentView,
     ExchangeAndRefund,
+    SizeProductView,
 )
 
 urlpatterns = [
@@ -29,6 +30,10 @@ urlpatterns = [
     path(
         'category/v1/<int:category_id>/',
         CategoriesView.as_view(), name='category',
+    ),
+    path(
+        'product/v1/size/<int:size_id>/',
+        SizeProductView.as_view(), name='product_size',
     ),
     path(
         'product/v1/<slug:product_slug>/',
