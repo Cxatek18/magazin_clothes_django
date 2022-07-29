@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
     TemplateView,
 )
+
 from .models import (
     Product,
     Category,
@@ -29,9 +30,12 @@ from .services.product_controller import (
 from .filters import (
     ProductFilter,
 )
+from .utils import (
+    ProductMixin,
+)
 
 
-class HomeProductView(ListView):
+class HomeProductView(ProductMixin, ListView):
     """
     Вывод списка всех продуктов на главной странице
     """
@@ -42,17 +46,10 @@ class HomeProductView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # фильтр товаров
-        filter_prod = ProductFilter(
-            self.request.GET, queryset=self.get_queryset().filter(
-                status="Have"
-            )
-        )
-
+        # фильтр товаров - self.get_filter_product(ProductFilter)
         context = {
-            'filter': filter_prod,
+            'filter': self.get_filter_product(ProductFilter),
         }
-
         return context
 
 
@@ -75,7 +72,7 @@ class ProductManagementView(ListView):
         return context
 
 
-class CategoriesView(ListView):
+class CategoriesView(ProductMixin, ListView):
     """
     Вывод списка всех категорий на главной странице
     """
@@ -88,20 +85,10 @@ class CategoriesView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        title_head = Category.objects.get(
-            pk=self.kwargs['category_id']
-        )
-
-        # фильтр товаров
-        filter_prod = ProductFilter(
-            self.request.GET, queryset=self.get_queryset().filter(
-                status="Have"
-            )
-        )
-
+        # фильтр товаров - self.get_filter_product(ProductFilter)
         context = {
-            'title_head': title_head,
-            'filter': filter_prod,
+            'title_head': self.get_title_head_product(Category, 'category_id'),
+            'filter': self.get_filter_product(ProductFilter),
         }
         return context
 
@@ -111,7 +98,7 @@ class CategoriesView(ListView):
         )
 
 
-class BrandsView(ListView):
+class BrandsView(ProductMixin, ListView):
     """
     Вывод списка всех брендов на главной странице
     """
@@ -124,22 +111,13 @@ class BrandsView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        title_head = ProductBrand.objects.get(
-            pk=self.kwargs['brand_id']
-        )
-
-        # фильтр товаров
-        filter_prod = ProductFilter(
-            self.request.GET, queryset=self.get_queryset().filter(
-                status="Have"
-            )
-        )
-
+        # фильтр товаров - self.get_filter_product(ProductFilter)
         context = {
-            'title_head': title_head,
-            'filter': filter_prod,
+            'title_head': self.get_title_head_product(
+                ProductBrand, 'brand_id'
+            ),
+            'filter': self.get_filter_product(ProductFilter),
         }
-
         return context
 
     def get_queryset(self):
@@ -148,7 +126,7 @@ class BrandsView(ListView):
         )
 
 
-class SizeProductView(ListView):
+class SizeProductView(ProductMixin, ListView):
     """
     Вывод списка всех товаров по размеру
     """
@@ -161,20 +139,10 @@ class SizeProductView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        title_head = ProductSize.objects.get(
-            pk=self.kwargs['size_id']
-        )
-
-        # фильтр товаров
-        filter_prod = ProductFilter(
-            self.request.GET, queryset=self.get_queryset().filter(
-                status="Have"
-            )
-        )
-
+        # фильтр товаров - self.get_filter_product(ProductFilter)
         context = {
-            'title_head': title_head,
-            'filter': filter_prod,
+            'title_head': self.get_title_head_product(ProductSize, 'size_id'),
+            'filter': self.get_filter_product(ProductFilter),
         }
         return context
 
