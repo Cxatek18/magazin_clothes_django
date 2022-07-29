@@ -14,7 +14,7 @@ from .views import (
     ListProductImageView,
     UpdateProductImageView,
     DeliveryAndPaymentView,
-    ExchangeAndRefund,
+    ExchangeAndRefundView,
     SizeProductView,
 )
 
@@ -74,6 +74,6 @@ urlpatterns = [
     ),
     path(
         'product/exchange-and-refund/',
-        ExchangeAndRefund.as_view(), name='exchange_and_refund',
+        ExchangeAndRefundView.as_view(), name='exchange_and_refund',
     ),
 ]

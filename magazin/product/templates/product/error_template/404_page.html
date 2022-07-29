@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }} | Страница недоступна
+{% endblock %}
+
+{% block error %}
+    
+  <div class="alert alert-danger col-md-6 text-center mx-auto" role="alert">
+    <h4 class="alert-heading text-uppercase fw-bolder">Ошибка 404</h4>
+    <p>Упс такой страницы нету, не расстраивайтесь и посмотрите наши товары. Не забывайте вы всегда можете связаться с нами в разделе обратная связь.</p>
+    <hr>
+    <p class="mb-0">Приятных вам покупок!!!</p>
+  </div>
+
+{% endblock %}

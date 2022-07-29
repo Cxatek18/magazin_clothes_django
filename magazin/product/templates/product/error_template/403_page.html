@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ block.super }} | Отказ доступа
+{% endblock %}
+
+{% block error %}
+    
+  <div class="alert alert-danger col-md-6 text-center mx-auto" role="alert">
+    <h4 class="alert-heading text-uppercase fw-bolder">Отказано в доступе</h4>
+    <p>Сюда нельзя. Не забывайте вы всегда можете связаться с нами в разделе обратная связь.</p>
+    <hr>
+    <p class="mb-0">Приятных вам покупок!!!</p>
+  </div>
+
+{% endblock %}

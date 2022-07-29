@@ -35,6 +35,27 @@ from .utils import (
 )
 
 
+def handling_error_404(request, exception):
+    """
+    Кастомная страница для ошибки 404
+    """
+    return render(request, 'product/error_template/404_page.html', status=404)
+
+
+def handling_error_403(request, exception):
+    """
+    Кастомная страница для ошибки 403
+    """
+    return render(request, 'product/error_template/403_page.html', status=403)
+
+
+def handling_error_400(request, exception):
+    """
+    Кастомная страница для ошибки 400
+    """
+    return render(request, 'product/error_template/400_page.html', status=400)
+
+
 class HomeProductView(ProductMixin, ListView):
     """
     Вывод списка всех продуктов на главной странице
@@ -358,10 +379,20 @@ class DeliveryAndPaymentView(TemplateView):
     extra_context = {'title_head': 'Доставка и оплата'}
 
 
-class ExchangeAndRefund(TemplateView):
+class ExchangeAndRefundView(TemplateView):
     """
     Страница обмена и возврата
     """
 
     template_name = 'product/exchange_and_refund.html'
+    extra_context = {'title_head': 'Обмен и возврат'}
+
+
+class Page404Error(TemplateView):
+    """
+    Страница обмена и возврата
+    """
+
+    template_name = 'product/error_template/404_page.html'
+    status = 404
     extra_context = {'title_head': 'Обмен и возврат'}
