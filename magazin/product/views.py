@@ -33,6 +33,9 @@ from .filters import (
 from .utils import (
     ProductMixin,
 )
+from .permissions import (
+    UserAccessMixin,
+)
 
 
 def handling_error_404(request, exception):
@@ -74,7 +77,7 @@ class HomeProductView(ProductMixin, ListView):
         return context
 
 
-class ProductManagementView(ListView):
+class ProductManagementView(UserAccessMixin, ListView):
     """
     Вывод списка продуктов для управления.
     (Управление продуктами)
@@ -184,7 +187,7 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
 
-class ProductCreateView(View):
+class ProductCreateView(UserAccessMixin, View):
 
     def get(self, request, *args, **kwargs):
         """
@@ -219,7 +222,7 @@ class ProductCreateView(View):
             return redirect('home')
 
 
-class UpdateProductView(View):
+class UpdateProductView(UserAccessMixin, View):
     def get(self, request, *args, **kwargs):
 
         """
@@ -266,7 +269,7 @@ class UpdateProductView(View):
             return redirect('home')
 
 
-class DeleteProductView(DeleteView):
+class DeleteProductView(UserAccessMixin, DeleteView):
     """
     Удаление определённого продукта
     """
@@ -278,7 +281,7 @@ class DeleteProductView(DeleteView):
     raise_exception = True
 
 
-class AddingProductPhoto(View):
+class AddingProductPhoto(UserAccessMixin, View):
 
     def get(self, request, *args, **kwargs):
         """
@@ -320,7 +323,7 @@ class AddingProductPhoto(View):
             return redirect('home')
 
 
-class CreateBrand(CreateView):
+class CreateBrand(UserAccessMixin, CreateView):
     """
     Создание бренда
     """
@@ -337,7 +340,7 @@ class CreateBrand(CreateView):
     raise_exception = True
 
 
-class ListProductImageView(View):
+class ListProductImageView(UserAccessMixin, View):
     """
     Вывод списка всех картинок товара
     """
@@ -356,7 +359,7 @@ class ListProductImageView(View):
         )
 
 
-class UpdateProductImageView(UpdateView):
+class UpdateProductImageView(UserAccessMixin, UpdateView):
     """
     Обновление определённого фото
     определённого продукта
