@@ -71,3 +71,35 @@ class UserLoginForm(AuthenticationForm):
         label='Пароль',
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
     )
+
+
+class ContactFormTelegram(forms.Form):
+    """
+    Форма для связи со мной
+    (связь реализована через телеграм)
+    """
+    CONTACT_SUBJECT = [
+        ('Tech_problem', 'Техническая проблема'),
+        ('Order', 'Заказ'),
+        ('Payment', 'Оплата'),
+        ('Cooperation', 'Сотруднечество'),
+        ('Certificates', 'Сертефикаты'),
+        ('Another_reason', 'Другая причина'),
+    ]
+
+    subject = forms.CharField(
+        label='Тема письма',
+        widget=forms.Select(
+            attrs={'class': 'form-control'},
+            choices=CONTACT_SUBJECT
+        )
+    )
+    text = forms.CharField(
+        label='Текст письма',
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5})
+    )
+    connection = forms.CharField(
+        label='Как с вами связаться',
+        help_text='Ссылка на вашу соцсеть для связи или ваша почта',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )

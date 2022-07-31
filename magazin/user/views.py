@@ -12,9 +12,13 @@ from .models import (
 from .forms import (
     UserRegisterForm,
     UserLoginForm,
+    ContactFormTelegram,
 )
 from .services.user_controller import (
     UserController,
+)
+from .services.send_message_telegram import (
+    MessageSenderTelegram,
 )
 
 
@@ -132,3 +136,40 @@ class UserDetailView(DetailView):
         'title_head': 'Личный кабинет',
     }
     raise_exception = True
+
+
+class SendMessageToTelegramm(View):
+    def get(self, request, *args, **kwargs):
+        """
+        Получение формы для авторизации пользователя
+        """
+        context = {
+            'form': ContactFormTelegram,
+            'title_head': 'Обратная связь'
+        }
+
+        return render(
+            request, 'user/contact_with_me.html',  context
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Отправка сообщения в телеграм
+        """
+        if request.method == 'POST':
+            form = ContactFormTelegram(request.POST)
+            if form.is_valid():
+                message_sener = MessageSenderTelegram()
+
+                if message_sener.send_message_contact_with_me(form) is True:
+                    messages.success(request, 'Письмо успешно отправлено')
+                    return redirect('contact_with_me')
+                else:
+                    messages.success(request, 'Ошибка отправки')
+                    return redirect('contact_with_me')
+            else:
+                messages.error(request, 'Ошибка отправки')
+                return redirect('contact_with_me')
+        else:
+            form = ContactFormTelegram()
+        return render(request, 'user/contact_with_me.html', {'form': form})

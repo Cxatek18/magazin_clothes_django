@@ -5,6 +5,7 @@ from .views import (
     UserLoginView,
     UserLogoutView,
     UserDetailView,
+    SendMessageToTelegramm,
 )
 
 urlpatterns = [
@@ -20,5 +21,9 @@ urlpatterns = [
     path(
         'personal-account-user/<int:pk>/',
         UserDetailView.as_view(), name='personal_account_user',
+    ),
+    path(
+        'contact-with-me/',
+        SendMessageToTelegramm.as_view(), name='contact_with_me',
     ),
 ]

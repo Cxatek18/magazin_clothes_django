@@ -143,3 +143,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Telegram send message Settings
+TELEGRAM_BOT_API_KEY = os.getenv('TELEGRAM_BOT_API_KEY')
+TELEGRAM_BOT_USERNAME = os.getenv('TELEGRAM_BOT_USERNAME')
+TELEGRAM_BOT_CHANEL_NAME = os.getenv('TELEGRAM_BOT_CHANEL_NAME')

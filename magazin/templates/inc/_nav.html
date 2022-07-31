@@ -25,10 +25,7 @@
           <a class="nav-link" style="color:#000000;" href="{% url 'exchange_and_refund' %}">Обмен и возврат</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="color:#000000;">О нас</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" style="color:#000000;">Обратная связь</a>
+          <a class="nav-link" style="color:#000000;" href="{% url 'contact_with_me' %}">Обратная связь</a>
         </li>
 
       </ul>
@@ -38,7 +35,7 @@
         <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Корзина</a>
         <a class="nav-link active" aria-current="page" style="color:#000000;" href="#">Избранное</a>
       {% endif %}
-      
+
       {% if request.user.is_authenticated %}
         <a class="btn btn-primary btn-active" href="{% url 'logout_user' %}" style="background-color:#FF6600; border-color:#FF6600;">
           Выйти
