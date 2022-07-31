@@ -1,18 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.views.generic import (
     View,
 )
 
 from .forms import (
     UserRegisterForm,
+    UserLoginForm,
 )
 from .services.user_controller import (
     UserController,
 )
 
 
-class UserRegister(View):
+class UserRegisterView(View):
     """
     Регистрация пользователя
     """
@@ -44,11 +46,11 @@ class UserRegister(View):
 
                 if password_1 == password_2:
 
-                    new_user.set_password(form.cleaned_data['password1'])
                     new_user.ip_address = UserController.get_ip_address_user(
                         request
                     )
                     new_user.save()
+                    messages.error(request, 'Вы успешно зарегестрировались')
                     return redirect('home')
 
                 else:
@@ -62,3 +64,44 @@ class UserRegister(View):
         else:
             form = UserRegisterForm()
         return render(request, 'user/register.html', {'form': form})
+
+
+class UserLoginView(View):
+    """
+    Авторизация пользователя
+    """
+    def get(self, request, *args, **kwargs):
+        """
+        Получение формы для авторизации пользователя
+        """
+        context = {
+            'form_login_user': UserLoginForm,
+            'title_head': 'Авторизация'
+        }
+
+        return render(
+            request, 'user/user_login.html',  context
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Метод post для авторизации пользователя
+        """
+        if request.method == 'POST':
+            form = UserLoginForm(request, data=request.POST)
+            if form.is_valid():
+                user = form.get_user()
+                if user:
+                    login(request, user)
+                    messages.success(request, f'Привет {user.username}')
+                    return redirect('home')
+                else:
+                    messages.error(request, 'Ошибка входа')
+                    return render(
+                        request, 'user/user_login.html', {'form': form}
+                    )
+            else:
+                messages.error(request, 'Ошибка входа')
+        else:
+            form = UserLoginForm()
+        return render(request, 'user/user_login.html', {'form': form})
