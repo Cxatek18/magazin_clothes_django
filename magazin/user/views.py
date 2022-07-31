@@ -105,3 +105,13 @@ class UserLoginView(View):
         else:
             form = UserLoginForm()
         return render(request, 'user/user_login.html', {'form': form})
+
+
+class UserLogoutView(View):
+    """
+    Выход из аккаунта
+    """
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'Вы вышли из системы')
+        return redirect('home')
