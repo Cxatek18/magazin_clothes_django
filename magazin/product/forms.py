@@ -11,7 +11,6 @@ class ProductForm(forms.ModelForm):
     """
     Форма для продукта
     """
-
     class Meta:
         model = Product
         fields = [
@@ -46,7 +45,6 @@ class ProductImageForm(forms.ModelForm):
     """
     Форма для фото продукта
     """
-
     class Meta:
         model = ProductImage
         fields = [
@@ -68,7 +66,6 @@ class ProductUpdateImageForm(forms.ModelForm):
     """
     Форма для фото продукта при изменении продукта
     """
-
     class Meta:
         model = ProductImage
         fields = [
@@ -88,7 +85,6 @@ class BrandProductCreateForm(forms.ModelForm):
     """
     Форма для создания бренда
     """
-
     class Meta:
         model = ProductBrand
         fields = [
@@ -104,7 +100,6 @@ class ProductImageUpdateForm(forms.ModelForm):
     """
     Форма для обновления фото продукта
     """
-
     class Meta:
         model = ProductImage
         fields = [

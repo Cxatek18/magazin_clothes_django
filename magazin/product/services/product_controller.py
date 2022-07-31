@@ -9,7 +9,6 @@ class ProductController():
         """
         Подставляем данные продукта в форму
         """
-
         form_product = form_prod(
             initial={
                 "product_name": prod.product_name,
@@ -46,7 +45,6 @@ class ProductController():
         """
         Подставление товара для которого будет создано фото
         """
-
         form_product_image = form_img_prod(
             initial={
                 "image": '',
@@ -68,7 +66,6 @@ class ProductController():
         получаем данные из формы и подставляем их для создания
         продукта.
         """
-
         if form_product.is_valid():
             product_obj = form_product.save(commit=False)
             product_obj.product_name = form_product.cleaned_data[
@@ -115,7 +112,6 @@ class ProductController():
         стоит информация о продукте,
         затем обновляем продукт с новой информацией.
         """
-
         if form_product.is_valid():
             product.product_name = form_product.cleaned_data[
                 'product_name'
@@ -162,7 +158,6 @@ class ProductController():
         Метод подставления нужной информации для создания
         фото определённого продукта
         """
-
         if form_product_image.is_valid():
             product_img_obj = form_product_image.save(commit=False)
             product_img_obj.image = form_product_image.cleaned_data[
@@ -182,7 +177,6 @@ class ProductController():
         сделано для того чтоб если у продукта есть хоть какое то фото,
         то нам не надо хранить дефолтное
         """
-
         if list_photo.count() > 1:
             list_photo.get(image='product/system_img/default.jpg').delete()
             return True

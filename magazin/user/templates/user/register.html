@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | {{ title_head }}
+{% endblock %}
+
+{%block register_user%}
+
+  <h1 class="mb-5 text-center">Регистрация</h1>
+
+  <div class="container">
+
+    <form method="post">
+
+      {% csrf_token %}
+      {{ form_register_user.as_p }}
+  
+      <div class="btn_update_product text-center">
+
+        <button type="submit" class="btn btn-primary btn-active" style="background-color:#FF6600; border-color:#FF6600;">
+          Зарегестрироваться
+        </button>
+      
+      </div>
+
+    </form>
+
+  </div>
+{%endblock%}

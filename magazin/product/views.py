@@ -63,7 +63,6 @@ class HomeProductView(ProductMixin, ListView):
     """
     Вывод списка всех продуктов на главной странице
     """
-
     model = Product
     template_name = 'product/index.html'
 
@@ -82,7 +81,6 @@ class ProductManagementView(UserAccessMixin, ListView):
     Вывод списка продуктов для управления.
     (Управление продуктами)
     """
-
     model = Product
     context_object_name = 'products'
     template_name = 'product/admin_templates/product_management.html'
@@ -100,7 +98,6 @@ class CategoriesView(ProductMixin, ListView):
     """
     Вывод списка всех категорий на главной странице
     """
-
     model = Product
     context_object_name = 'products'
     template_name = 'product/index.html'
@@ -126,7 +123,6 @@ class BrandsView(ProductMixin, ListView):
     """
     Вывод списка всех брендов на главной странице
     """
-
     model = ProductBrand
     context_object_name = 'products'
     template_name = 'product/index.html'
@@ -154,7 +150,6 @@ class SizeProductView(ProductMixin, ListView):
     """
     Вывод списка всех товаров по размеру
     """
-
     model = Product
     context_object_name = 'products'
     template_name = 'product/index.html'
@@ -180,7 +175,6 @@ class ProductDetailView(DetailView):
     """
     Вывод ифнормации о отдельном продукте на отдельной странице
     """
-
     model = Product
     template_name = 'product/detail_product.html'
     slug_url_kwarg = 'product_slug'
@@ -193,7 +187,6 @@ class ProductCreateView(UserAccessMixin, View):
         """
         Получение всех форм для создания продукта
         """
-
         form_class_product = ProductForm
         form_class_product_image = ProductImageForm
 
@@ -210,7 +203,6 @@ class ProductCreateView(UserAccessMixin, View):
         """
         Создание продукта
         """
-
         form_product = ProductForm(request.POST or None)
         form_product_image = ProductImageForm(request.POST, request.FILES)
         prod_controller = ProductController()
@@ -228,7 +220,6 @@ class UpdateProductView(UserAccessMixin, View):
         """
         Выставление информации о продукте в форму
         """
-
         product = Product.objects.get(
             id=kwargs.get('pk')
         )
@@ -248,7 +239,6 @@ class UpdateProductView(UserAccessMixin, View):
         """
         Обновление продукта
         """
-
         form_product = ProductForm(request.POST or None)
         form_product_image = ProductUpdateImageForm(
             request.POST, request.FILES
@@ -273,7 +263,6 @@ class DeleteProductView(UserAccessMixin, DeleteView):
     """
     Удаление определённого продукта
     """
-
     model = Product
     slug_url_kwarg = 'product_slug'
     success_url = '/'
@@ -288,7 +277,6 @@ class AddingProductPhoto(UserAccessMixin, View):
         Выставление нужного продукта в форму добавления
         фото к определённому продукту
         """
-
         product = Product.objects.get(
             slug=kwargs.get('product_slug')
         )
@@ -305,7 +293,6 @@ class AddingProductPhoto(UserAccessMixin, View):
         """
         Добавление фото к определённому продукту
         """
-
         form_product_image = ProductImageForm(request.POST, request.FILES)
         product = Product.objects.get(
             slug=kwargs.get('product_slug')
@@ -327,7 +314,6 @@ class CreateBrand(UserAccessMixin, CreateView):
     """
     Создание бренда
     """
-
     model = ProductBrand
     template_name = 'product/admin_templates/create_brand.html'
     form_class = BrandProductCreateForm
@@ -344,7 +330,6 @@ class ListProductImageView(UserAccessMixin, View):
     """
     Вывод списка всех картинок товара
     """
-
     def get(self, request, *args, **kwargs):
         product = Product.objects.get(
             slug=kwargs.get('product_slug')
@@ -364,7 +349,6 @@ class UpdateProductImageView(UserAccessMixin, UpdateView):
     Обновление определённого фото
     определённого продукта
     """
-
     model = ProductImage
     template_name = 'product/admin_templates/uprdate_photo_product.html'
     form_class = ProductImageUpdateForm
@@ -377,7 +361,6 @@ class DeliveryAndPaymentView(TemplateView):
     """
     Страница доставки и оплаты
     """
-
     template_name = 'product/delevery_and_payment.html'
     extra_context = {'title_head': 'Доставка и оплата'}
 
@@ -386,7 +369,6 @@ class ExchangeAndRefundView(TemplateView):
     """
     Страница обмена и возврата
     """
-
     template_name = 'product/exchange_and_refund.html'
     extra_context = {'title_head': 'Обмен и возврат'}
 
@@ -395,7 +377,6 @@ class Page404Error(TemplateView):
     """
     Страница обмена и возврата
     """
-
     template_name = 'product/error_template/404_page.html'
     status = 404
     extra_context = {'title_head': 'Обмен и возврат'}

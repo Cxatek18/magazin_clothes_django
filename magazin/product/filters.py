@@ -9,7 +9,6 @@ class ProductFilter(django_filters.FilterSet):
     """
     Фильтры товаров
     """
-
     CHOICES_GENDER = (
         ('Male', 'Мужчины'),
         ('Female', 'Женщины'),

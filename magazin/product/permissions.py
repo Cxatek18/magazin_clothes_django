@@ -5,9 +5,8 @@ class UserAccessMixin:
     """
     Класс для доступов к определённым страницам
     """
-
     def has_permission(self):
-        if self.request.user.is_staff:
+        if self.request.user.is_staff or self.request.user.is_moderator:
             return True
 
     def dispatch(self, request, *args, **kwargs):

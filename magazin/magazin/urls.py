@@ -8,8 +8,9 @@ handler403 = "product.views.handling_error_403"
 handler400 = "product.views.handling_error_400"
 
 urlpatterns = [
+    path('', include('product.urls')),
     path('admin/', admin.site.urls),
-    path('', include('product.urls'))
+    path('user/', include('user.urls')),
 ]
 
 if settings.DEBUG:
