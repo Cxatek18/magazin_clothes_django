@@ -13,6 +13,7 @@ from .views import (
     CreateBrand,
     ListProductImageView,
     UpdateProductImageView,
+    AddProductToFavorite,
     DeliveryAndPaymentView,
     ExchangeAndRefundView,
     SizeProductView,
@@ -67,6 +68,10 @@ urlpatterns = [
     path(
         'product/update-photo-product/<int:pk>/',
         UpdateProductImageView.as_view(), name='update_photo_product',
+    ),
+    path(
+        'product/favorite-product/',
+        AddProductToFavorite.as_view(), name='favorite_product',
     ),
     path(
         'product/delevery-and-payment/',

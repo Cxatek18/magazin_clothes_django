@@ -141,7 +141,8 @@ class UserDetailView(DetailView):
 class SendMessageToTelegramm(View):
     def get(self, request, *args, **kwargs):
         """
-        Получение формы для авторизации пользователя
+        Получение формы для связи
+        (по телеграму)
         """
         context = {
             'form': ContactFormTelegram,

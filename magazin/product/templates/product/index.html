@@ -41,6 +41,28 @@
             <a href="#" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
           </div>
 
+          {% if request.user.is_authenticated %}
+
+            <div class="text-center mx-auto">
+              
+              <form action="{%url 'favorite_product'%}" method="POST" class="text-center mb-3 pr-3">
+                {% csrf_token %}
+                  <input type="hidden" name="product_id" value="{{item.pk}}">
+                {% if request.user not in item.favorite_products.all %}
+                  <button type="submit" class="btn position-relative text-uppercase mt-3" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                    Добавить в избранное
+                  </button>
+                {% else %}
+                  <button type="submit" class="btn position-relative text-uppercase mt-3" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                    Убрать из избранного
+                  </button>
+                {% endif %}
+              </form>
+
+            </div>
+
+          {% endif %}
+
           <p class="text-center fw-bolder mt-2">{{ item.price_now }} руб.</p>
 
           {% if item.discounted_price %}

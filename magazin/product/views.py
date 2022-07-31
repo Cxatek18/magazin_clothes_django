@@ -16,6 +16,7 @@ from .models import (
     ProductBrand,
     ProductImage,
     ProductSize,
+    FavoriteUserProduct,
 )
 from .forms import (
     ProductForm,
@@ -355,6 +356,19 @@ class UpdateProductImageView(UserAccessMixin, UpdateView):
     context_object_name = 'photo'
     raise_exception = True
     success_url = reverse_lazy('home')
+
+
+class AddProductToFavorite(View):
+    """
+    Добавление продукта в избранное
+    """
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        prod_controller = ProductController()
+        prod_controller.add_product_to_favorite(
+            request, user, Product, FavoriteUserProduct,
+        )
+        return redirect('home')
 
 
 class DeliveryAndPaymentView(TemplateView):

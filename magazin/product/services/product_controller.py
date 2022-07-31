@@ -180,3 +180,23 @@ class ProductController():
         if list_photo.count() > 1:
             list_photo.get(image='product/system_img/default.jpg').delete()
             return True
+
+    def add_product_to_favorite(self, request, user, prod_cls, favorite_cls):
+        """
+        Добавление продукта в избранное
+        """
+        if request.method == 'POST':
+            product_id = request.POST.get('product_id')
+            product_obj = prod_cls.objects.get(id=product_id)
+
+            if user in product_obj.favorite_products.all():
+                product_obj.favorite_products.remove(user)
+            else:
+                product_obj.favorite_products.add(user)
+
+            favorite_products, created = favorite_cls.objects.\
+                get_or_create(
+                    user=user, product_id=product_id
+                )
+
+            favorite_products.save()

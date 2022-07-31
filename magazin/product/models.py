@@ -94,6 +94,13 @@ class Product(models.Model):
         related_name='product_sizes',
         blank=True,
     )
+    favorite_products = models.ManyToManyField(
+        'user.User',
+        default=None,
+        blank=True,
+        verbose_name='Добавить в избранное',
+        related_name='favorite_products'
+    )
 
     def __str__(self):
         return self.product_name
@@ -229,3 +236,21 @@ class ProductSize(models.Model):
     class Meta:
         verbose_name = 'Product size'
         verbose_name_plural = 'Product sizes'
+
+
+class FavoriteUserProduct(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE,
+        verbose_name='Продукт',
+    )
+    user = models.ForeignKey(
+        'user.User', on_delete=models.CASCADE,
+        verbose_name='Пользователь'
+    )
+
+    def __str__(self):
+        return f'{self.user}: {self.product}'
+
+    class Meta:
+        verbose_name = 'Favorite product'
+        verbose_name_plural = 'Favorite products'
