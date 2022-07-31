@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | {{ title_head }}
+{% endblock %}
+
+{% block personal_account_user %}
+    <h1 class="mb-5 text-center">Личный кабинет {{user_info.username}}</h1>
+{% endblock %}

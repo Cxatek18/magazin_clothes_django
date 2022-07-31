@@ -3,8 +3,12 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.views.generic import (
     View,
+    DetailView,
 )
 
+from .models import (
+    User,
+)
 from .forms import (
     UserRegisterForm,
     UserLoginForm,
@@ -115,3 +119,16 @@ class UserLogoutView(View):
         logout(request)
         messages.success(request, 'Вы вышли из системы')
         return redirect('home')
+
+
+class UserDetailView(DetailView):
+    """
+    Вывод данных пользователя в личном кабинете
+    """
+    model = User
+    template_name = 'user/personal_account_user.html'
+    context_object_name = 'user_info'
+    extra_context = {
+        'title_head': 'Личный кабинет',
+    }
+    raise_exception = True
