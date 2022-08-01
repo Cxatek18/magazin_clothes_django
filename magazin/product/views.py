@@ -394,3 +394,11 @@ class Page404Error(TemplateView):
     template_name = 'product/error_template/404_page.html'
     status = 404
     extra_context = {'title_head': 'Обмен и возврат'}
+
+
+class FavoriteUserProductsView(TemplateView):
+    """
+    Страница вывода продуктов добавленых в избранное
+    """
+    template_name = 'product/favorite_product_user.html'
+    extra_context = {'title_head': 'Избранные продукты'}
