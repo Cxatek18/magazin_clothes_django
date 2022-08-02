@@ -71,8 +71,12 @@ class HomeProductView(ProductMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # фильтр товаров - self.get_filter_product(ProductFilter)
+        # пагинатор товара - self.pagination_product
         context = {
             'filter': self.get_filter_product(ProductFilter),
+            'product_page_obj': self.pagination_product(
+                self.request, self.get_filter_product(ProductFilter)
+            )
         }
         return context
 
@@ -108,9 +112,13 @@ class CategoriesView(ProductMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # фильтр товаров - self.get_filter_product(ProductFilter)
+        # пагинатор товара - self.pagination_product
         context = {
             'title_head': self.get_title_head_product(Category, 'category_id'),
             'filter': self.get_filter_product(ProductFilter),
+            'product_page_obj': self.pagination_product(
+                self.request, self.get_filter_product(ProductFilter)
+            )
         }
         return context
 
@@ -133,11 +141,15 @@ class BrandsView(ProductMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # фильтр товаров - self.get_filter_product(ProductFilter)
+        # пагинатор товара - self.pagination_product
         context = {
             'title_head': self.get_title_head_product(
                 ProductBrand, 'brand_id'
             ),
             'filter': self.get_filter_product(ProductFilter),
+            'product_page_obj': self.pagination_product(
+                self.request, self.get_filter_product(ProductFilter)
+            )
         }
         return context
 
@@ -160,9 +172,13 @@ class SizeProductView(ProductMixin, ListView):
         context = super().get_context_data(**kwargs)
 
         # фильтр товаров - self.get_filter_product(ProductFilter)
+        # пагинатор товара - self.pagination_product
         context = {
             'title_head': self.get_title_head_product(ProductSize, 'size_id'),
             'filter': self.get_filter_product(ProductFilter),
+            'product_page_obj': self.pagination_product(
+                self.request, self.get_filter_product(ProductFilter)
+            )
         }
         return context
 

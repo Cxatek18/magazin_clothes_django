@@ -8,11 +8,13 @@
   {% include 'inc/_sidebar.html' %}
 {% endblock %}
 
+{% load product_tags %}
+
 {% block content %}
 
   <div class="d-flex justify-content-between flex-wrap product" id="product">
 
-    {% for item in filter.qs %}
+    {% for item in product_page_obj %}
 
       <div class="card row mt-2" style="width: 18rem;">
 
@@ -28,7 +30,7 @@
             <p class="card-text" style="color:#FF6600;">Бренд: {{ item.brand_product }}</p>
           </div>
 
-          <div class="product_description text-center" style="max-height: 90px; height: 100%;">
+          <div class="product_description text-center" style="max-height: 60px; height: 100%;">
             <p class="card-text">{{ item.description|linebreaks|truncatewords:5 }}</p>
           </div>
 
@@ -86,5 +88,34 @@
     {% endfor %}
 
   </div>
+
+  {% if product_page_obj.has_other_pages %}
+
+    <div class="pagination_wrapper">
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination mt-5" style="color: #FF6600;">
+          {% if product_page_obj.has_previous %}<li class="page-item"><a class="page-link" type="text" style="color: #FF6600;" href="{% my_url 1 'page' request.GET.urlencode %}">First</a></li>
+            <li class="page-item"><a class="page-link" type="text" style="color: #FF6600;" href="{% my_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">&lt;</a></li>
+          {% endif %}
+
+          {% for page in product_page_obj.paginator.page_range %}
+            {% if product_page_obj.number == page %}
+              <li class="page-item active"><a class="page-link" type="text" style="color: rgb(255, 255, 255); background-color: #FF6600; border-color: #dee2e6;" href="{% my_url page 'page' request.GET.urlencode %}">{{ page }}</a></li>
+            {% elif page >= product_page_obj.number|add:-2 and page <= product_page_obj.number|add:2 %}
+              <li class="page-item"><a class="page-link" type="text" style="color: #FF6600;" href="{% my_url page 'page' request.GET.urlencode %}">{{ page }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if product_page_obj.has_next %}
+            <li class="page-item"><a class="page-link" type="text" style="color: #FF6600;" href="{% my_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">&gt;</a></li>
+            <li class="page-item"><a class="page-link" type="text" style="color: #FF6600;" href="{% my_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+
+    </div>
+
+  {% endif %}
 
 {% endblock %}
