@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.views.generic import (
     ListView,
     DetailView,
@@ -24,9 +25,13 @@ from .forms import (
     BrandProductCreateForm,
     ProductImageUpdateForm,
     ProductUpdateImageForm,
+    BuyProductOneClickForm,
 )
 from .services.product_controller import (
     ProductController,
+)
+from .services.send_message_telegram_product import (
+    MessageProductSenderTelegram
 )
 from .filters import (
     ProductFilter,
@@ -418,3 +423,43 @@ class FavoriteUserProductsView(TemplateView):
     """
     template_name = 'product/favorite_product_user.html'
     extra_context = {'title_head': 'Избранные продукты'}
+
+
+class BuyProductOneClick(View):
+    """
+    Покупка продукта в один клик
+    """
+    def get(self, request, *args, **kwargs):
+        product = Product.objects.get(
+            id=kwargs.get('pk')
+        )
+
+        context = {
+            'form_by_product':
+                ProductController.adding_information_to_the_form_buy_click(
+                    BuyProductOneClickForm, product
+                ),
+            'purchased_product': product
+        }
+
+        return render(
+            request, 'product/buy_product_one_click.html', context
+        )
+
+    def post(self, request, *args, **kwargs):
+        form_product = BuyProductOneClickForm(request.POST)
+
+        if form_product.is_valid():
+            sender_product_tg = MessageProductSenderTelegram()
+            sender_product_tg.send_message_buy_one_click(
+                form_product
+            )
+            messages.success(
+                request,
+                'Спасибо!!! наш менеджер свяжеться с вами для согласования\
+                    деталей',
+            )
+            return redirect('home')
+        else:
+            messages.error(request, 'Ошибка отправки')
+            return redirect('buy_product_one_click', kwargs.get('pk'))

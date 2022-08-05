@@ -40,7 +40,7 @@
           </div>
 
           <div class="text-center">
-            <a href="#" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
+            <a href="{% url 'buy_product_one_click' item.pk %}" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
           </div>
 
           {% if request.user.is_authenticated %}

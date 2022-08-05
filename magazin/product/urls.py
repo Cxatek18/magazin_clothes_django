@@ -18,6 +18,7 @@ from .views import (
     ExchangeAndRefundView,
     SizeProductView,
     FavoriteUserProductsView,
+    BuyProductOneClick,
 )
 
 urlpatterns = [
@@ -85,5 +86,9 @@ urlpatterns = [
     path(
         'product/favorite-products-list/',
         FavoriteUserProductsView.as_view(), name='favorite_products_list',
+    ),
+    path(
+        'product/buy-product-one-click/<int:pk>/',
+        BuyProductOneClick.as_view(), name='buy_product_one_click',
     ),
 ]

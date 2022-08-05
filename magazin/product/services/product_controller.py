@@ -59,6 +59,17 @@ class ProductController():
 
         return context
 
+    @staticmethod
+    def adding_information_to_the_form_buy_click(form, product):
+        form_product = form(
+            initial={
+                "product_name": product.product_name,
+                "full_price": product.full_price,
+                "discounted_price": product.discounted_price,
+            }
+        )
+        return form_product
+
     def creating_product(self, form_product, form_product_image):
         """
         Метод создание продукта.

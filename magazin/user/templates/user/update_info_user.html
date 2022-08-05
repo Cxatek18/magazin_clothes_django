@@ -1,8 +1,8 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block title%}
-  {{block.super}} | Изменение данных пользователя
-{%endblock%}
+{% block title %}
+  {{ block.super }} | Изменение данных пользователя
+{% endblock %}
 
 {% block change_user_info %}
 
@@ -12,10 +12,10 @@
 
     <form method="post">
 
-      {%csrf_token%}
-      {{form.as_p}}
+      {% csrf_token %}
+      {{ form.as_p }}
   
-      <div class="btn_update_product text-center">
+      <div class="btn_update_user_info text-center">
   
         <button type="submit" class="btn btn-primary btn-active" style="background-color:#FF6600; border-color:#FF6600;">
           Изменить
@@ -27,4 +27,4 @@
 
   </div>
 
-{%endblock%}
+{% endblock %}

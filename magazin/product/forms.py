@@ -105,3 +105,37 @@ class ProductImageUpdateForm(forms.ModelForm):
         fields = [
             'image',
         ]
+
+
+class BuyProductOneClickForm(forms.ModelForm):
+    """
+    Форма для покупки продукта в один клик
+    """
+    phone_user = forms.CharField(
+        label='Номер телефона для связи',
+        widget=forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'minlength': 10, 'maxlength': 15,
+                    'required': True, 'type': 'tel',
+                    'autocomplete': 'off'
+                }
+            ),
+        help_text='Обязательно с +7'
+    )
+
+    class Meta:
+        model = Product
+        fields = [
+            'product_name',
+            'full_price', 'discounted_price',
+            'colors', 'product_size'
+        ]
+
+        widgets = {
+            'product_name': forms.HiddenInput(),
+            'full_price': forms.HiddenInput(),
+            'discounted_price': forms.HiddenInput(),
+            'colors': forms.CheckboxSelectMultiple(),
+            'product_size': forms.CheckboxSelectMultiple(),
+        }

@@ -61,7 +61,7 @@ class UserRegisterView(View):
                         request
                     )
                     new_user.save()
-                    messages.error(request, 'Вы успешно зарегестрировались')
+                    messages.success(request, 'Вы успешно зарегестрировались')
                     return redirect('home')
 
                 else:
@@ -169,7 +169,7 @@ class SendMessageToTelegramm(View):
                     messages.success(request, 'Письмо успешно отправлено')
                     return redirect('contact_with_me')
                 else:
-                    messages.success(request, 'Ошибка отправки')
+                    messages.error(request, 'Ошибка отправки')
                     return redirect('contact_with_me')
             else:
                 messages.error(request, 'Ошибка отправки')

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} | Покупка в один клик
+{% endblock %}
+
+{% block buy_product_one_click %}
+
+  <div class="container-md">
+
+    <h1 class="mb-5 text-center fw-bolder text-uppercase">Покупка в один клик</h1>
+
+    <form method="POST" action="{% url 'buy_product_one_click' purchased_product.pk %}" enctype="multipart/form-data">
+
+      {% csrf_token %}
+      {{ form_by_product.as_p }}
+      
+
+      <div class="text-center">
+
+        <button type="submit" style="background-color:#FF6600; color:#ffffff;" class="btn btn-block">
+          Купить
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+{% endblock %}
