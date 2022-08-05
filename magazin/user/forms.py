@@ -103,3 +103,37 @@ class ContactFormTelegram(forms.Form):
         help_text='Ссылка на вашу соцсеть для связи или ваша почта',
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
+
+
+class UserInfoUpdateForm(forms.ModelForm):
+    """
+    Форма для обновления данных пользователя
+    """
+    username = forms.CharField(
+        label='Имя пользователя',
+        widget=forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'autocomplete': 'off'
+                }
+            ),
+        help_text='Имя пользователя не должно превыщать 120 символов'
+    )
+    email = forms.EmailField(
+        label='Email',
+        widget=forms.EmailInput(attrs={'class': 'form-control'}),
+    )
+    city = forms.CharField(
+        label='Город',
+        widget=forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'autocomplete': 'off'
+                }
+            ),
+        help_text='Название города не должно превыщать 120 символов'
+    )
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'city',)

@@ -5,5 +5,38 @@
 {% endblock %}
 
 {% block personal_account_user %}
-    <h1 class="mb-5 text-center">Личный кабинет {{user_info.username}}</h1>
+
+  <h1 class="mb-5 text-center">Личный кабинет {{user_info.username}}</h1>
+
+  <div class="container">
+
+    <div class="border">
+
+      <div class="info_user p-3">
+
+        <p class="text-left fs-4">
+          <span class="fw-bolder text-uppercase">Ваш логин:</span> {{user_info.username}}
+        </p>
+        <p class="text-left fs-4">
+          <span class="fw-bolder text-uppercase">Ваш email:</span> {{user_info.email}}
+        </p>
+        <p class="text-left fs-4">
+          {% if user_info.city %}
+            <span class="fw-bolder text-uppercase">Ваш город:</span> {{user_info.city}}
+          {% else %}
+            <span class="fw-bolder text-uppercase">Ваш город:</span> -
+          {% endif %}
+        </p>
+
+        <div class="btn_user_info text-center">
+          <a class="btn btn-primary btn-active" aria-current="page" style="color:#ffffff; background-color:#FF6600; border-color:#FF6600;" href="{% url 'favorite_products_list' %}">Избранное</a>
+          <a class="btn btn-primary btn-active" aria-current="page" style="color:#ffffff; background-color:#FF6600; border-color:#FF6600;" href="{% url 'update_user_info' user_info.pk %}">Изменить данные</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 {% endblock %}

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.urls import reverse_lazy
 from django.views.generic import (
     View,
     DetailView,
+    UpdateView,
 )
 
 from .models import (
@@ -13,6 +15,7 @@ from .forms import (
     UserRegisterForm,
     UserLoginForm,
     ContactFormTelegram,
+    UserInfoUpdateForm,
 )
 from .services.user_controller import (
     UserController,
@@ -174,3 +177,15 @@ class SendMessageToTelegramm(View):
         else:
             form = ContactFormTelegram()
         return render(request, 'user/contact_with_me.html', {'form': form})
+
+
+class UserUpdateInfoView(UpdateView):
+    """
+    Обновление инофрмации пользователя
+    """
+    model = User
+    template_name = 'user/update_info_user.html'
+    form_class = UserInfoUpdateForm
+    context_object_name = 'user_item'
+    success_url = reverse_lazy('home')
+    raise_exception = True

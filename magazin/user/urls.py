@@ -6,6 +6,7 @@ from .views import (
     UserLogoutView,
     UserDetailView,
     SendMessageToTelegramm,
+    UserUpdateInfoView,
 )
 
 urlpatterns = [
@@ -25,5 +26,9 @@ urlpatterns = [
     path(
         'contact-with-me/',
         SendMessageToTelegramm.as_view(), name='contact_with_me',
+    ),
+    path(
+        'update-user-info/<int:pk>/',
+        UserUpdateInfoView.as_view(), name='update_user_info',
     ),
 ]
