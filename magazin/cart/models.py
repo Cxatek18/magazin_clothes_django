@@ -19,18 +19,22 @@ class Cart(models.Model):
     total_products = models.IntegerField(
         verbose_name='Количество товара',
         default=0,
+        null=True,
     )
     final_price_cart = models.IntegerField(
         verbose_name='Общая сумма всех товаров',
         default=0,
+        null=True,
     )
     total_discount_price = models.IntegerField(
         verbose_name='Общая сумма скидок',
         default=0,
+        null=True,
     )
     total_not_discount_price = models.IntegerField(
         verbose_name='Общая сумма цен без скидок',
         default=0,
+        null=True,
     )
     in_order = models.BooleanField(
         verbose_name='В заказе',

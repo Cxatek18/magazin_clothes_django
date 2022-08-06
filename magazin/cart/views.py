@@ -54,3 +54,23 @@ class ListProductInCart(View):
         return render(
             request, 'cart_templates/list_product_in_cart.html', context
         )
+
+
+class DeleteProductFromCart(View):
+    """
+    Удаление продукта из корзины.
+    """
+    def post(self, request, *args, **kwargs):
+
+        user = request.user
+        cart = Cart.objects.filter(user_name=user).first()
+        cart_product = CartProduct.objects.get(
+            pk=kwargs.get('pk')
+        )
+        cart.products_in_cart.remove(cart_product)
+        cart_product.delete()
+        messages.success(
+            request,
+            'Вы успешно удалил товар из корзины'
+        )
+        return redirect('home')
