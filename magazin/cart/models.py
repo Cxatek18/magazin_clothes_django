@@ -93,5 +93,5 @@ class CartProduct(models.Model):
         self.final_total_discount = self.count_product *\
             self.product_name.discounted_price
         self.final_price_not_discount = self.count_product *\
-            self.product_name.price_old
+            self.product_name.full_price
         super().save(*args, **kwargs)
