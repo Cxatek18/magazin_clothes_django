@@ -32,13 +32,20 @@
             <p class="card-text">{{ item.description|linebreaks|truncatewords:5 }}</p>
           </div>
 
-          <div class="text-center">
+          <div class="text-center d-flex justify-content-around">
             <a href="{% url 'product_detail' item.slug %}" class="btn text-uppercase" style="background-color:#FF6600; color:#ffffff;">Подробнее</a>
-            <a href="#" class="btn text-uppercase" style="background-color:#FF6600; color:#ffffff;">В корзину</a>
+
+            <form action="{% url 'add_product_in_cart' item.pk %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn text-uppercase" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                В корзину
+              </button>
+            </form>
+
           </div>
 
           <div class="text-center">
-            <a href="#" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
+            <a href="{% url 'buy_product_one_click' item.pk %}" class="btn mt-2 text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
           </div>
 
           {% if request.user.is_authenticated %}

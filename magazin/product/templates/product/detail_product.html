@@ -74,9 +74,29 @@
         </div>
 
         <div class="button_product_detail d-flex flex-row justify-content-around">
-          <a href="#" class="btn fw-bolder text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
-          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600; color:#ffffff;">В корзину</a>
-          <a href="#" class="btn fw-bolder text-uppercase" style="background-color:#FF6600; color:#ffffff;">В избранное</a>
+          <a href="{% url 'buy_product_one_click' product.pk %}" class="btn fw-bolder text-center text-uppercase" style="background-color:#FF6600; color:#ffffff;">Купить в один клик</a>
+
+          <form action="{% url 'add_product_in_cart' product.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn fw-bolder text-uppercase" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+              В корзину
+            </button>
+          </form>
+
+          <form action="{% url 'favorite_product' %}" method="POST" class="text-center">
+            {% csrf_token %}
+              <input type="hidden" name="product_id" value="{{product.pk}}">
+            {% if request.user not in product.favorite_products.all %}
+              <button type="submit" class="btn fw-bolder position-relative text-uppercase" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                Добавить в избранное
+              </button>
+            {% else %}
+              <button type="submit" class="btn fw-bolder position-relative text-uppercase" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                Убрать из избранного
+              </button>
+            {% endif %}
+          </form>
+
         </div>
 
       </div>

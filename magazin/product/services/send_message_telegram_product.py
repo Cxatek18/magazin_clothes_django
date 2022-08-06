@@ -10,7 +10,7 @@ class MessageProductSenderTelegram():
     def send_message_buy_one_click(self, form):
 
         msg = f'\
-            #ПокупкаВОдинКлик\n\nПродукт: \
+            #ПокупкаОдинКлик\n\nПродукт: \
 {form.cleaned_data["product_name"]}\n\n\
 Цена: {form.cleaned_data["full_price"]}\n\n\
 Скидка: {form.cleaned_data["discounted_price"]}'

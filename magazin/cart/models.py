@@ -61,7 +61,8 @@ class CartProduct(models.Model):
     product_name = models.ForeignKey(
         'product.Product',
         verbose_name='Товар',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='related_product_cart',
     )
     count_product = models.IntegerField(
         verbose_name='Количество',

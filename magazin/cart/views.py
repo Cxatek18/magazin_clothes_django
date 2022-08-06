@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from django.views.generic import (
@@ -38,3 +38,19 @@ class AddProductInCart(View):
                     {prod_obj.product_name} в корзину'
             )
             return redirect('home')
+
+
+class ListProductInCart(View):
+    """
+    Список продуктов в корзине
+    """
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.get(user_name=f"{request.user.id}")
+        context = {
+            'cart_info': cart,
+            'title_head': 'Список продуктов в корзине'
+        }
+
+        return render(
+            request, 'cart_templates/list_product_in_cart.html', context
+        )

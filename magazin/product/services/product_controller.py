@@ -1,3 +1,6 @@
+from django.contrib import messages
+
+
 class ProductController():
     """
     Класс контролер для продуктов.
@@ -202,6 +205,10 @@ class ProductController():
 
             if user in product_obj.favorite_products.all():
                 product_obj.favorite_products.remove(user)
+                messages.success(
+                    request,
+                    f'Вы убрали из избранного {product_obj.product_name}'
+                )
             else:
                 product_obj.favorite_products.add(user)
 
@@ -210,4 +217,8 @@ class ProductController():
                     user=user, product_id=product_id
                 )
 
+            messages.success(
+                request,
+                f'Вы добавили в избранного {product_obj.product_name}'
+            )
             favorite_products.save()
