@@ -34,6 +34,9 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """
+    Модель пользователя
+    """
     username = models.CharField(
         verbose_name='Имя пользователя',
         max_length=120,

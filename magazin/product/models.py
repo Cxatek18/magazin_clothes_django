@@ -239,6 +239,9 @@ class ProductSize(models.Model):
 
 
 class FavoriteUserProduct(models.Model):
+    """
+    Модель избранных продуктов
+    """
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE,
         verbose_name='Продукт',
