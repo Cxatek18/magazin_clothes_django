@@ -20,7 +20,7 @@
 
             <div class="card row mt-2" style="width: 18rem;">
 
-              <div class="img-product d-flex p-3" style="width: 100%; height: 250px; flex-direction: column; align-items: center">
+              <div class="img-product d-flex p-3" style="width: 100%; height: 40%; flex-direction: column; align-items: center">
                 <img src="{{ item.product_name.prodimg.all.0.image.url }}" style="object-fit: cover;" class="card-img-top" height="100%" width="100%" alt="...">
               </div>
       
@@ -58,7 +58,7 @@
                     
                     <form action="{%url 'favorite_product'%}" method="POST" class="text-center mb-3 pr-3">
                       {% csrf_token %}
-                        <input type="hidden" name="product_id" value="{{item.product_name.pk}}">
+                        <input type="hidden" name="product_id" value="{{ item.product_name.pk }}">
                       {% if request.user not in item.product_name.favorite_products.all %}
                         <button type="submit" class="btn position-relative text-uppercase mt-3" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
                           Добавить в избранное
@@ -75,6 +75,16 @@
                 {% endif %}
       
                 <p class="text-center fw-bolder mt-2">{{ item.product_name.price_now }} руб.</p>
+
+                <form action="{% url 'change_product_qty_in_cart' item.pk  %}" method="POST" class="text-center">
+                  {% csrf_token %}
+
+                  <input type="number" name="product_count" value="{{item.count_product}}" style="border: 1px solid #ced4da; padding: .375rem .75rem; border-radius: 5px; margin-bottom: 15px;"/>
+                  <button type="submit" class="btn position-relative text-uppercase mb-2" style="background-color:#FF6600; color:#ffffff; border-color: #FF6600;">
+                    Изменить количество
+                  </button>
+
+                </form>
       
                 {% if item.discounted_price %}
       

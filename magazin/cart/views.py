@@ -12,9 +12,12 @@ from .models import (
 from .services.cart_controller import (
     CartController
 )
+from .services.cart_calculator import (
+    CartCalculator
+)
 
 
-class AddProductInCart(View):
+class AddProductInCartView(View):
     def post(self, request, *args, **kwargs):
         """
         Добавление продукта в корзину.
@@ -40,7 +43,7 @@ class AddProductInCart(View):
             return redirect('home')
 
 
-class ListProductInCart(View):
+class ListProductInCartView(View):
     """
     Список продуктов в корзине
     """
@@ -54,7 +57,7 @@ class ListProductInCart(View):
         else:
             context = {
                 'cart_info': cart,
-                'title_head': 'Список продуктов в корзине'
+                'title_head': 'Список продуктов в корзине',
             }
 
         return render(
@@ -62,7 +65,7 @@ class ListProductInCart(View):
         )
 
 
-class DeleteProductFromCart(View):
+class DeleteProductFromCartView(View):
     """
     Удаление продукта из корзины.
     """
@@ -82,3 +85,36 @@ class DeleteProductFromCart(View):
             'Вы успешно удалил товар из корзины'
         )
         return redirect('home')
+
+
+class ChangeQtyProductInCartView(View):
+    """
+    Изменение количества товара в корзине
+    """
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        cart_product = CartProduct.objects.get(
+            pk=kwargs.get('pk')
+        )
+        cart = Cart.objects.filter(user_name=user).first()
+
+        if request.method == 'POST':
+            if int(request.POST.get('product_count')) <= 0:
+                messages.error(
+                    request,
+                    'Вы добавляете отрицательное число'
+                )
+                return redirect('list_product_in_cart')
+            else:
+                cart_product.count_product = int(
+                    request.POST.get('product_count')
+                )
+                cart_product.save()
+                cart_calculator = CartCalculator()
+                cart_calculator.cart_calculation(cart)
+                cart.save()
+                messages.success(
+                    request,
+                    'Вы успешно поменяли количество товара'
+                )
+                return redirect('list_product_in_cart')
