@@ -45,11 +45,17 @@ class ListProductInCart(View):
     Список продуктов в корзине
     """
     def get(self, request, *args, **kwargs):
-        cart = Cart.objects.get(user_name=f"{request.user.id}")
-        context = {
-            'cart_info': cart,
-            'title_head': 'Список продуктов в корзине'
-        }
+        cart = Cart.objects.filter(user_name=request.user).first()
+        if not cart:
+            context = {
+                'cart_info': False,
+                'title_head': 'Список продуктов в корзине'
+            }
+        else:
+            context = {
+                'cart_info': cart,
+                'title_head': 'Список продуктов в корзине'
+            }
 
         return render(
             request, 'cart_templates/list_product_in_cart.html', context
@@ -68,6 +74,8 @@ class DeleteProductFromCart(View):
             pk=kwargs.get('pk')
         )
         cart.products_in_cart.remove(cart_product)
+        if cart.products_in_cart.all().exists() is False:
+            cart.delete()
         cart_product.delete()
         messages.success(
             request,

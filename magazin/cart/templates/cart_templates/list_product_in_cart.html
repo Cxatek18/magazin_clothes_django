@@ -10,7 +10,7 @@
 
   <div class="container">
 
-    {% if cart_info.products_in_cart.all|length > 0 %}
+    {% if cart_info is not False %}
     
       <div class="d-flex justify-content-around">
 
