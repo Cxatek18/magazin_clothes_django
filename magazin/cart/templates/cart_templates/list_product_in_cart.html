@@ -121,7 +121,14 @@
           <p class="text-center">
             Общая сумма цены без скидок: {{ cart_info.total_not_discount_price }}
           </p>
+          <p class="text-center">
+            Количество товаров в корзине: {{ cart_info.total_products }}
+          </p>
 
+          <div class="order_all_product_in_cart text-center p-3">
+            <a class="btn btn-primary btn-active mx-auto" aria-current="page" style="color:#ffffff; background-color:#FF6600; border-color:#FF6600;" href="{% url 'order_all_product_cart' %}">Заказать всё</a>
+          </div>
+          
         </div>
 
       </div>

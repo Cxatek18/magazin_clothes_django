@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{block.super }} | Оформление товара
+{% endblock %}
+
+{% block order_product %}
+
+  <h1 class="mb-5 text-center">Заказ товаров</h1>
+
+  <div class="container">
+
+    <form method="post">
+
+      {% csrf_token %}
+      {{ form.as_p }}
+  
+      <div class="btn_update_product text-center">
+  
+        <button type="submit" class="btn btn-primary btn-active" style="background-color:#FF6600; border-color:#FF6600;">
+          Заказать
+        </button>
+      
+      </div>
+  
+    </form>
+
+  </div>
+
+{% endblock %}
