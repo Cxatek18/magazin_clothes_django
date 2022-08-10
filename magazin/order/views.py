@@ -67,3 +67,58 @@ class OrderAllProductCart(View):
                 request, 'Ваш заказ не принят'
             )
             return redirect('home')
+
+
+class OrderOneProductInCart(View):
+    """
+    Заказ одного продукта из корзины
+    """
+    def get(self, request, *args, **kwargs):
+        cart = Cart.objects.filter(user_name=request.user).first()
+        form_order = OrderForm(
+            initial={
+                "user_name": request.user,
+                "products_in_order": cart.products_in_cart.get(
+                    pk=kwargs.get('pk')
+                )
+            }
+        )
+
+        form_order.fields[
+            'products_in_order'
+        ].queryset = cart.products_in_cart.filter(
+            pk=kwargs.get('pk')
+        )
+
+        context = {
+            'form': form_order,
+        }
+
+        return render(
+            request, 'order/order_one_product.html', context
+        )
+
+    def post(self, request, *args, **kwargs):
+        form = OrderForm(request.POST or None)
+        cart = Cart.objects.filter(user_name=request.user).first()
+
+        if form.is_valid():
+            order = form.save()
+            order_calc = OrderCalculator()
+            order_calc.starting_order_calc(order)
+            order_conttroller = OrderController()
+            order_conttroller.delete_prod_in_cart(
+                order, cart
+            )
+            order.save()
+
+            messages.success(
+                request, 'Вы успешно сделали заказ'
+            )
+            return redirect('home')
+
+        else:
+            messages.error(
+                request, 'Ваш заказ не принят'
+            )
+            return redirect('home')

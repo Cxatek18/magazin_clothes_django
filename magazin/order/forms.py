@@ -28,7 +28,6 @@ class OrderForm(forms.ModelForm):
             'products_in_order': forms.SelectMultiple(
                 attrs={
                     'class': 'form-control', 'size': 5,
-                    'label': 'Товары которые вы заказываете:',
                 },
             ),
             'buying_type': forms.Select(
