@@ -113,6 +113,10 @@ class Product(models.Model):
             self.price_now = self.full_price - self.discounted_price
         else:
             self.price_now = self.full_price
+        if self.quantity == 0:
+            self.status = 'Havent'
+        else:
+            self.status = 'Have'
         super().save(*args, **kwargs)
 
     class Meta:

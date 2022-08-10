@@ -21,7 +21,7 @@ class CartAdmin(admin.ModelAdmin):
     list_editable = (
         'total_products', 'final_price_cart',
         'total_discount_price', 'total_not_discount_price',
-        'for_anonymous_user', 'in_order'
+        'for_anonymous_user', 'in_order',
     )
     list_filter = (
         'in_order', 'for_anonymous_user',
@@ -33,7 +33,7 @@ class CartProductAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'cart', 'product_name', 'count_product',
         'final_price', 'final_total_discount',
-        'final_price_not_discount'
+        'final_price_not_discount', 'in_order'
     )
     list_display_links = (
         'id', 'cart',
@@ -45,6 +45,7 @@ class CartProductAdmin(admin.ModelAdmin):
     list_editable = (
         'count_product', 'final_price',
         'final_total_discount', 'final_price_not_discount',
+        'in_order',
     )
     save_on_top = True
 

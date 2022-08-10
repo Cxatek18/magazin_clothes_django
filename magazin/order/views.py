@@ -8,6 +8,7 @@ from .forms import (
     OrderForm
 )
 from cart.models import Cart
+from product.models import Product
 from .services.order_calculator import (
     OrderCalculator,
 )
@@ -51,12 +52,14 @@ class OrderAllProductCart(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+            order.save()
             order_conttroller = OrderController()
-            order_conttroller.delete_prod_in_cart(
+            order_conttroller.replacing_in_order_with_True(
                 order, cart
             )
-            order.save()
-
+            order_conttroller.subtracting_qty_product_from_availability(
+                order, Product
+            )
             messages.success(
                 request, 'Вы успешно сделали заказ'
             )
@@ -106,12 +109,14 @@ class OrderOneProductInCart(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+            order.save()
             order_conttroller = OrderController()
-            order_conttroller.delete_prod_in_cart(
+            order_conttroller.replacing_in_order_with_True(
                 order, cart
             )
-            order.save()
-
+            order_conttroller.subtracting_qty_product_from_availability(
+                order, Product
+            )
             messages.success(
                 request, 'Вы успешно сделали заказ'
             )

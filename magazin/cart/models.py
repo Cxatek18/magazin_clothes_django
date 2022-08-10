@@ -85,6 +85,10 @@ class CartProduct(models.Model):
         verbose_name='Общая сумма цен без скидок в корзине',
         default=0,
     )
+    in_order = models.BooleanField(
+        verbose_name='В заказе',
+        default=False,
+    )
 
     class Meta:
         verbose_name = 'Product in cart'
