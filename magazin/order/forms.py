@@ -26,7 +26,10 @@ class OrderForm(forms.ModelForm):
             'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'address': forms.TextInput(attrs={'class': 'form-control'},),
             'products_in_order': forms.SelectMultiple(
-                attrs={'class': 'form-control', 'size': 5},
+                attrs={
+                    'class': 'form-control', 'size': 5,
+                    'label': 'Товары которые вы заказываете:',
+                },
             ),
             'buying_type': forms.Select(
                 attrs={'class': 'form-control'}

@@ -89,7 +89,7 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return self.user_name
+        return str(self.first_name)
 
     class Meta:
         verbose_name = 'Order'

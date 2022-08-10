@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
 from django.views.generic import (
     View,
 )
+
 from product.models import Product
 from .models import (
     Cart,

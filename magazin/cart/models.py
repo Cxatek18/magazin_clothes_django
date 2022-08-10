@@ -91,7 +91,7 @@ class CartProduct(models.Model):
         verbose_name_plural = 'Products in cart'
 
     def __str__(self):
-        return f"{self.product_name} добавлен в коризну - {self.cart}"
+        return f"{self.product_name}. Количество: {self.count_product}"
 
     def save(self, *args, **kwargs):
         self.final_price = self.count_product * self.product_name.price_now
