@@ -6,7 +6,7 @@
 
 {% block list_product_in_cart %}
 
-  <h1 class="mb-5 text-center fw-bolder text-uppercase">Корзина пользователя - {{cart_info.user_name.username}}</h1>
+  <h1 class="mb-5 text-center fw-bolder text-uppercase">Ваша корзина</h1>
 
   <div class="container">
 
@@ -16,10 +16,8 @@
 
         <div class="products_in_cart col-md-9 d-flex justify-content-around flex-wrap">
 
-          {% for item in cart_info.products_in_cart.all %}
-
-
-            <p>Доделать</p>
+          {% for item in cart_info.products_in_cart.all %} 
+          
             {% if item.in_order is not True %}
 
               <div class="card mt-2" style="width: 18rem;">

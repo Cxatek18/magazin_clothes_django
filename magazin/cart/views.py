@@ -99,22 +99,33 @@ class ChangeQtyProductInCartView(View):
         cart = Cart.objects.filter(user_name=user).first()
 
         if request.method == 'POST':
-            if int(request.POST.get('product_count')) <= 0:
+            if int(
+                request.POST.get('product_count')
+            ) < cart_product.product_name.quantity:
+                if int(request.POST.get('product_count')) <= 0:
+                    messages.error(
+                        request,
+                        'Вы добавляете отрицательное число'
+                    )
+                    return redirect('list_product_in_cart')
+                else:
+                    cart_product.count_product = int(
+                        request.POST.get('product_count')
+                    )
+                    cart_product.save()
+                    cart_calculator = CartCalculator()
+                    cart_calculator.cart_calculation(cart)
+                    cart.save()
+                    messages.success(
+                        request,
+                        'Вы успешно поменяли количество товара'
+                    )
+                    return redirect('list_product_in_cart')
+            else:
                 messages.error(
                     request,
-                    'Вы добавляете отрицательное число'
-                )
-                return redirect('list_product_in_cart')
-            else:
-                cart_product.count_product = int(
-                    request.POST.get('product_count')
-                )
-                cart_product.save()
-                cart_calculator = CartCalculator()
-                cart_calculator.cart_calculation(cart)
-                cart.save()
-                messages.success(
-                    request,
-                    'Вы успешно поменяли количество товара'
+                    f'Вы добавляете больше чем есть в наличии.\
+                    {cart_product.product_name} в наличии -\
+                    {cart_product.product_name.quantity}'
                 )
                 return redirect('list_product_in_cart')
