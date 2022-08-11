@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{block.super }} | Список заказов
+{% endblock %}
+
+{% block order_product_list %}
+
+  <div class="container">
+
+    <h2 class="text-center text-uppercase fw-bolder mb-5">Список заказов</h2>
+
+    {% if orders.exists is not False %}
+
+      {% for order in orders %}
+
+        <div class="row">
+
+          <div class="col-sm-6">
+
+            {% if request.user.is_superuser or request.user.is_moderator %}
+
+              {% if order.status_order == 'new' %}
+
+                <div class="card" style="border-color:#ff0000;">
+
+                  <div class="card-body">
+
+                    <h5 class="card-title text-center">{{ order.user_name }}</h5>
+
+                    <p class="card-text">На имя: {{ order.first_name }}</p>
+                    <p class="card-text">Фамилия: {{ order.last_name }}</p>
+                    <p class="card-text">Номер телефона: {{ order.phone_number }}</p>
+                    <p class="card-text">Адресс: {{ order.address }}</p>
+                    <p class="card-text">Статус: {{ order.status_order }}</p>
+                    <p class="card-text">Финальная сумма: {{ order.final_price_order }}</p>
+                    <p class="card-text">Общее количество: {{ order.total_products }}</p>
+
+                    <div class="products_order border mb-3">
+                      <p class="card-text text-center">Товары:</p>
+                      {% for item in order.products_in_order.all %}
+                        <p class="card-text text-center p-1">{{ item }}</p>
+                      {% endfor %}
+                    </div>
+
+                    <div class="order_btn text-center">
+                      <a href="{% url 'order_update_user' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить</a>
+                      <a href="{% url 'delete_order' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Удалить</a>
+
+                      {% if request.user.is_superuser or request.user.is_moderator%}
+                        <a href="{% url 'order_update_admin' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить для админа</a>
+                      {% endif %}
+
+                    </div>
+
+                  </div>
+                  
+                </div>
+
+              {% else %}
+
+                <div class="card">
+
+                  <div class="card-body">
+
+                    <h5 class="card-title text-center">{{ order.user_name }}</h5>
+
+                    <p class="card-text">На имя: {{ order.first_name }}</p>
+                    <p class="card-text">Фамилия: {{ order.last_name }}</p>
+                    <p class="card-text">Номер телефона: {{ order.phone_number }}</p>
+                    <p class="card-text">Адресс: {{ order.address }}</p>
+                    <p class="card-text">Статус: {{ order.status_order }}</p>
+                    <p class="card-text">Финальная сумма: {{ order.final_price_order }}</p>
+                    <p class="card-text">Общее количество: {{ order.total_products }}</p>
+
+                    <div class="products_order border mb-3">
+                      <p class="card-text text-center">Товары:</p>
+                      {% for item in order.products_in_order.all %}
+                        <p class="card-text text-center p-1">{{ item }}</p>
+                      {% endfor %}
+                    </div>
+
+                    <div class="order_btn text-center">
+                      <a href="{% url 'order_update_user' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить</a>
+                      <a href="{% url 'delete_order' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Удалить</a>
+
+                      {% if request.user.is_superuser or request.user.is_moderator %}
+                        <a href="{% url 'order_update_admin' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить для админа</a>
+                      {% endif %}
+
+                    </div>
+
+                  </div>
+                  
+                </div>
+
+              {% endif %}
+            
+            {% else %}
+
+              <div class="card">
+
+                <div class="card-body">
+
+                  <h5 class="card-title text-center">{{ order.user_name }}</h5>
+
+                  <p class="card-text">На имя: {{ order.first_name }}</p>
+                  <p class="card-text">Фамилия: {{ order.last_name }}</p>
+                  <p class="card-text">Номер телефона: {{ order.phone_number }}</p>
+                  <p class="card-text">Адресс: {{ order.address }}</p>
+                  <p class="card-text">Статус: {{ order.status_order }}</p>
+                  <p class="card-text">Финальная сумма: {{ order.final_price_order }}</p>
+                  <p class="card-text">Общее количество: {{ order.total_products }}</p>
+
+                  <div class="products_order border mb-3">
+                    <p class="card-text text-center">Товары:</p>
+                    {% for item in order.products_in_order.all %}
+                      <p class="card-text text-center p-1">{{ item }}</p>
+                    {% endfor %}
+                  </div>
+
+                  <div class="order_btn text-center">
+                    <a href="{% url 'order_update_user' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить</a>
+                    <a href="{% url 'delete_order' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Удалить</a>
+
+                    {% if request.user.is_superuser or request.user.is_moderator %}
+                      <a href="{% url 'order_update_admin' order.pk %}" class="btn text-center" style="background-color:#FF6600; border-color:#FF6600; color: #ffff">Изменить для админа</a>
+                    {% endif %}
+
+                  </div>
+
+                </div>
+                
+              </div>
+
+            {% endif %}
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    {% else %}
+
+      <div class="card-body col-8 mx-auto text-white" style="background-color: #FF6600;">
+        <p class="card-text text-center fs-4 p-5">
+          Вы не делали заказы.
+        </p>
+      </div>
+
+    {% endif %}
+
+  </div>
+
+{% endblock %}

@@ -34,6 +34,11 @@
         <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'personal_account_user' request.user.pk %}">Личный кабинет</a>
         <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'list_product_in_cart' %}">Корзина</a>
         <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'favorite_products_list' %}">Избранное</a>
+        {% if request.user.is_superuser or request.user.is_moderator %}
+          <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'list_order_product' %}">Заказы</a>
+        {% else %}
+          <a class="nav-link active" aria-current="page" style="color:#000000;" href="{% url 'list_order_product' %}">Мои заказы</a>
+        {% endif %}
       {% endif %}
 
       {% if request.user.is_authenticated %}

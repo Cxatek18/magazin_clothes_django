@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ block.super }} | Изменение заказа
+{% endblock %}
+
+{% block order_update %}
+
+  <div class="container-md">
+
+    <h1 class="text-center fw-bolder text-uppercase">Изменение Заказа</h1>
+
+    <form action="{% url 'order_update_admin' order.pk %}" enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <div class="btn_update_product text-center">
+
+        <button type="submit" class="btn btn-primary btn-block" style="background-color:#FF6600; border-color:#FF6600;">
+          Обновить заказ
+        </button>
+        
+      </div>
+      
+    </form>
+
+  </div>
+
+{% endblock %}

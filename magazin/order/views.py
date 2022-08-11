@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.views.generic import (
     View,
+    DeleteView,
+    UpdateView,
 )
 
+from .models import (
+    Order,
+)
 from .forms import (
-    OrderForm
+    OrderForm,
+    UpdateUserOrderForm,
+    UpdateAdminOrderForm,
 )
 from cart.models import Cart
 from product.models import Product
@@ -17,7 +25,7 @@ from .services.order_controller import (
 )
 
 
-class OrderAllProductCart(View):
+class OrderAllProductCartView(View):
     """
     Оформление заказа на все товары в корзине
     """
@@ -72,7 +80,7 @@ class OrderAllProductCart(View):
             return redirect('home')
 
 
-class OrderOneProductInCart(View):
+class OrderOneProductInCartView(View):
     """
     Заказ одного продукта из корзины
     """
@@ -127,3 +135,63 @@ class OrderOneProductInCart(View):
                 request, 'Ваш заказ не принят'
             )
             return redirect('home')
+
+
+class ListOrderView(View):
+    """
+    Вывод товаров в заказах
+    """
+    allow_empty = False
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser or request.user.is_moderator:
+            context = {
+                'orders': Order.objects.all()
+            }
+            return render(
+                request, 'order/list_product_order.html', context
+            )
+        else:
+            context = {
+                'orders': Order.objects.filter(
+                    user_name=request.user
+                )
+            }
+            return render(
+                request, 'order/list_product_order.html', context
+            )
+
+
+class DeleteOrderView(DeleteView):
+    """
+    Удаление определённого заказа
+    """
+    model = Order
+    success_url = '/'
+    template_name = 'order/delete_order.html'
+    raise_exception = True
+
+
+class UpdateOrderUserView(UpdateView):
+    """
+    Обновление заказа с стороны пользователя
+    """
+    model = Order
+    template_name = 'order/update_order_user.html'
+    form_class = UpdateUserOrderForm
+    context_object_name = 'order'
+    raise_exception = True
+    success_url = reverse_lazy('home')
+
+
+class UpdateOrderAdminView(UpdateView):
+    """
+    Обновление заказа с стороны админа
+    """
+    # Доделать доступы
+    model = Order
+    template_name = 'order/admin_template/update_order_admin.html'
+    form_class = UpdateAdminOrderForm
+    context_object_name = 'order'
+    raise_exception = True
+    success_url = reverse_lazy('home')

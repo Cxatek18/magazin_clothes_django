@@ -37,3 +37,63 @@ class OrderForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'rows': 5},
             )
         }
+
+
+class UpdateUserOrderForm(forms.ModelForm):
+    """
+    Форма для обновления заказа с стороны пользователя
+    """
+    class Meta:
+        model = Order
+        fields = [
+            'first_name', 'last_name',
+            'phone_number', 'address',
+            'buying_type', 'comment',
+        ]
+
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={'class': 'form-control'}
+            ),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'},),
+            'buying_type': forms.Select(
+                attrs={'class': 'form-control'}
+            ),
+            'comment': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': 5},
+            )
+        }
+
+
+class UpdateAdminOrderForm(forms.ModelForm):
+    """
+    Форма для обновления заказа с стороны админа
+    """
+    class Meta:
+        model = Order
+        fields = [
+            'first_name', 'last_name',
+            'phone_number', 'address',
+            'buying_type', 'comment',
+            'status_order',
+        ]
+
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={'class': 'form-control'}
+            ),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'},),
+            'buying_type': forms.Select(
+                attrs={'class': 'form-control'}
+            ),
+            'comment': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': 5},
+            ),
+            'status_order': forms.Select(
+                attrs={'class': 'form-control'}
+            ),
+        }

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{block.super }} | Удаление заказа
+{% endblock %}
+
+{% block order_delete %}
+
+  <h1 class="text-center">Удаление Заказа</h1>
+
+  <div class="alert alert-danger col-4 text-center mx-auto">
+    Осторожно, после удаление данные нельзя будет вернуть или востановить.
+    Подумайте точно ли вы хотите удалить данный заказ.
+    Если хотите удалить то нажмите на кнопку "Удалить продукт".
+  </div>
+
+  <form method="post">
+
+    {% csrf_token %}
+
+    <button class="btn btn-danger mx-auto fw-bolder mb-3 d-grid gap-2 col-3" type="submit">Удалить заказ</button>
+
+  </form>
+
+{% endblock %}
