@@ -143,11 +143,23 @@
 
     {% else %}
 
-      <div class="card-body col-8 mx-auto text-white" style="background-color: #FF6600;">
-        <p class="card-text text-center fs-4 p-5">
-          Вы не делали заказы.
-        </p>
-      </div>
+      {% if request.user.is_superuser %}
+
+        <div class="card-body col-8 mx-auto text-white" style="background-color: #FF6600;">
+          <p class="card-text text-center fs-4 p-5">
+            Заказов нету
+          </p>
+        </div>
+      
+      {% else %}
+
+        <div class="card-body col-8 mx-auto text-white" style="background-color: #FF6600;">
+          <p class="card-text text-center fs-4 p-5">
+            Вы не делали заказы.
+          </p>
+        </div>
+
+      {% endif %}
 
     {% endif %}
 

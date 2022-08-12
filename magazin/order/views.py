@@ -65,7 +65,7 @@ class OrderAllProductCartView(View):
             order_conttroller.replacing_in_order_with_True(
                 order, cart
             )
-            order_conttroller.subtracting_qty_product_from_availability(
+            order_conttroller.subtracting_qty_prod_from_availability(
                 order, Product
             )
             messages.success(
@@ -122,7 +122,7 @@ class OrderOneProductInCartView(View):
             order_conttroller.replacing_in_order_with_True(
                 order, cart
             )
-            order_conttroller.subtracting_qty_product_from_availability(
+            order_conttroller.subtracting_qty_prod_from_availability(
                 order, Product
             )
             messages.success(
