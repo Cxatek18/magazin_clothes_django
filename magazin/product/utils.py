@@ -5,7 +5,6 @@ class ProductMixin():
     """
     Класс миксин для продукта
     """
-
     def get_filter_product(self, filter_product):
         filter_prod = filter_product(
             self.request.GET, queryset=self.get_queryset().filter(

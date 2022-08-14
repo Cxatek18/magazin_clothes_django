@@ -101,6 +101,13 @@ class Product(models.Model):
         verbose_name='Добавить в избранное',
         related_name='favorite_products'
     )
+    product_in_stock = models.ForeignKey(
+        'ProductStock', verbose_name='В акции',
+        on_delete=models.PROTECT,
+        related_name='product_in_stock',
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.product_name
@@ -113,7 +120,7 @@ class Product(models.Model):
             self.price_now = self.full_price - self.discounted_price
         else:
             self.price_now = self.full_price
-        if self.quantity == 0:
+        if self.quantity <= 0:
             self.status = 'Havent'
         else:
             self.status = 'Have'
@@ -261,3 +268,26 @@ class FavoriteUserProduct(models.Model):
     class Meta:
         verbose_name = 'Favorite product'
         verbose_name_plural = 'Favorite products'
+
+
+class ProductStock(models.Model):
+    """
+    Модель акции
+    """
+    stock_name = models.CharField(
+        verbose_name='Название акции',
+        max_length=255,
+    )
+    image_stock = models.ImageField(
+        verbose_name='Банер акции',
+        blank=True,
+        upload_to='stock/%Y/%m/%d/',
+        default='product/system_img/default.jpg',
+    )
+
+    def __str__(self):
+        return self.stock_name
+
+    class Meta:
+        verbose_name = 'Stock'
+        verbose_name_plural = 'Stocks'

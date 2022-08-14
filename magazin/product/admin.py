@@ -8,6 +8,7 @@ from .models import (
     ProductBrand,
     ProductSize,
     FavoriteUserProduct,
+    ProductStock,
 )
 
 
@@ -31,7 +32,7 @@ class ProductAdmin(admin.ModelAdmin):
     )
     list_filter = (
         'status', 'category',
-        'gender',
+        'gender', 'product_in_stock'
     )
     readonly_fields = ('created_at',
                        'updated_at',)
@@ -97,6 +98,18 @@ class FavoriteUserProductAdmin(admin.ModelAdmin):
     )
 
 
+class ProductStockAdmin(admin.ModelAdmin):
+    list_display = (
+        'id', 'stock_name',
+    )
+    list_display_links = (
+        'id', 'stock_name',
+    )
+    search_fields = (
+        'id', 'stock_name',
+    )
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage, ProductImageAdmin)
@@ -104,3 +117,4 @@ admin.site.register(ProductColor, ProductColorAdmin)
 admin.site.register(ProductBrand, ProductBrandAdmin)
 admin.site.register(ProductSize, ProductSizeAdmin)
 admin.site.register(FavoriteUserProduct, FavoriteUserProductAdmin)
+admin.site.register(ProductStock, ProductStockAdmin)

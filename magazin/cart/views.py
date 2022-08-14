@@ -5,6 +5,7 @@ from django.views.generic import (
 )
 
 from product.models import Product
+
 from .models import (
     Cart,
     CartProduct,

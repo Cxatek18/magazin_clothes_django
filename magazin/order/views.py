@@ -7,6 +7,12 @@ from django.views.generic import (
     UpdateView,
 )
 
+from cart.models import Cart
+from product.models import Product
+from product.permissions import (
+    UserAccessMixin
+)
+
 from .models import (
     Order,
 )
@@ -15,8 +21,6 @@ from .forms import (
     UpdateUserOrderForm,
     UpdateAdminOrderForm,
 )
-from cart.models import Cart
-from product.models import Product
 from .services.order_calculator import (
     OrderCalculator,
 )
@@ -30,7 +34,6 @@ class OrderAllProductCartView(View):
     Оформление заказа на все товары в корзине
     """
     def get(self, request, *args, **kwargs):
-
         cart = Cart.objects.filter(user_name=request.user).first()
 
         form_order = OrderForm(
@@ -184,11 +187,10 @@ class UpdateOrderUserView(UpdateView):
     success_url = reverse_lazy('home')
 
 
-class UpdateOrderAdminView(UpdateView):
+class UpdateOrderAdminView(UserAccessMixin, UpdateView):
     """
     Обновление заказа с стороны админа
     """
-    # Доделать доступы
     model = Order
     template_name = 'order/admin_template/update_order_admin.html'
     form_class = UpdateAdminOrderForm

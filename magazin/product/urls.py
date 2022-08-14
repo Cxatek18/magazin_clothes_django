@@ -9,16 +9,16 @@ from .views import (
     ProductCreateView,
     UpdateProductView,
     DeleteProductView,
-    AddingProductPhoto,
-    CreateBrand,
+    AddingProductPhotoView,
+    CreateBrandView,
     ListProductImageView,
     UpdateProductImageView,
-    AddProductToFavorite,
+    AddProductToFavoriteView,
     DeliveryAndPaymentView,
     ExchangeAndRefundView,
     SizeProductView,
     FavoriteUserProductsView,
-    BuyProductOneClick,
+    BuyProductOneClickView,
 )
 
 urlpatterns = [
@@ -57,11 +57,11 @@ urlpatterns = [
     ),
     path(
         'product/add-photo-product/<slug:product_slug>/',
-        AddingProductPhoto.as_view(), name='add_photo_product',
+        AddingProductPhotoView.as_view(), name='add_photo_product',
     ),
     path(
         'product/create-brand/',
-        CreateBrand.as_view(), name='create_brand',
+        CreateBrandView.as_view(), name='create_brand',
     ),
     path(
         'product/list-photo-product/<slug:product_slug>/',
@@ -73,7 +73,7 @@ urlpatterns = [
     ),
     path(
         'product/favorite-product/',
-        AddProductToFavorite.as_view(), name='favorite_product',
+        AddProductToFavoriteView.as_view(), name='favorite_product',
     ),
     path(
         'product/delevery-and-payment/',
@@ -89,6 +89,6 @@ urlpatterns = [
     ),
     path(
         'product/buy-product-one-click/<int:pk>/',
-        BuyProductOneClick.as_view(), name='buy_product_one_click',
+        BuyProductOneClickView.as_view(), name='buy_product_one_click',
     ),
 ]

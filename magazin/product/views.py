@@ -81,7 +81,7 @@ class HomeProductView(ProductMixin, ListView):
             'filter': self.get_filter_product(ProductFilter),
             'product_page_obj': self.pagination_product(
                 self.request, self.get_filter_product(ProductFilter)
-            )
+            ),
         }
         return context
 
@@ -237,6 +237,7 @@ class ProductCreateView(UserAccessMixin, View):
 
 
 class UpdateProductView(UserAccessMixin, View):
+
     def get(self, request, *args, **kwargs):
 
         """
@@ -292,7 +293,7 @@ class DeleteProductView(UserAccessMixin, DeleteView):
     raise_exception = True
 
 
-class AddingProductPhoto(UserAccessMixin, View):
+class AddingProductPhotoView(UserAccessMixin, View):
 
     def get(self, request, *args, **kwargs):
         """
@@ -332,7 +333,7 @@ class AddingProductPhoto(UserAccessMixin, View):
             return redirect('home')
 
 
-class CreateBrand(UserAccessMixin, CreateView):
+class CreateBrandView(UserAccessMixin, CreateView):
     """
     Создание бренда
     """
@@ -379,7 +380,7 @@ class UpdateProductImageView(UserAccessMixin, UpdateView):
     success_url = reverse_lazy('home')
 
 
-class AddProductToFavorite(View):
+class AddProductToFavoriteView(View):
     """
     Добавление продукта в избранное
     """
@@ -425,7 +426,7 @@ class FavoriteUserProductsView(TemplateView):
     extra_context = {'title_head': 'Избранные продукты'}
 
 
-class BuyProductOneClick(View):
+class BuyProductOneClickView(View):
     """
     Покупка продукта в один клик
     """

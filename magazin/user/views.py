@@ -181,7 +181,7 @@ class SendMessageToTelegramm(View):
 
 class UserUpdateInfoView(UpdateView):
     """
-    Обновление инофрмации пользователя
+    Обновление информации пользователя
     """
     model = User
     template_name = 'user/update_info_user.html'
