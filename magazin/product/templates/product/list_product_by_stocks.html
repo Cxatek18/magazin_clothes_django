@@ -1,0 +1,35 @@
+<div class="text-center mx-auto">
+
+  {% if stocks.exists is True %}
+
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+
+      <div class="carousel-inner">
+        {% for stock in stocks %}
+
+          {% if stock.product_in_stock.all.count > 0 %}
+
+          <a href="{% url 'stock' stock.pk %}" class="slide_link">
+            <div class="carousel-item active" data-bs-interval="8000" style="width: 100%; height: 350px;">
+              <img src="{{ stock.image_stock.url }}" class="d-block w-100" alt="No photo">
+            </div>
+          </a>
+
+          {% endif %}
+
+        {% endfor %}
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  
+  {% endif %}
+
+</div>

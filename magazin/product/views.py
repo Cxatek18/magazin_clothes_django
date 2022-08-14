@@ -18,6 +18,7 @@ from .models import (
     ProductImage,
     ProductSize,
     FavoriteUserProduct,
+    ProductStock,
 )
 from .forms import (
     ProductForm,
@@ -464,3 +465,34 @@ class BuyProductOneClickView(View):
         else:
             messages.error(request, 'Ошибка отправки')
             return redirect('buy_product_one_click', kwargs.get('pk'))
+
+
+class ProductStocksView(ProductMixin, ListView):
+    """
+    Вывод списка всех акций на главной странице
+    """
+    model = ProductStock
+    context_object_name = 'products'
+    template_name = 'product/index.html'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # фильтр товаров - self.get_filter_product(ProductFilter)
+        # пагинатор товара - self.pagination_product
+        context = {
+            'title_head': self.get_title_head_product(
+                ProductStock, 'stock_id'
+            ),
+            'filter': self.get_filter_product(ProductFilter),
+            'product_page_obj': self.pagination_product(
+                self.request, self.get_filter_product(ProductFilter)
+            )
+        }
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(
+            product_in_stock_id=self.kwargs['stock_id'],
+        )

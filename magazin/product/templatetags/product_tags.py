@@ -2,6 +2,7 @@ from django import template
 from product.models import (
     Category,
     ProductBrand,
+    ProductStock,
 )
 
 register = template.Library()
@@ -38,3 +39,9 @@ def show_brand_product():
 def show_categories_size():
     categories = Category.objects.all()
     return {'category_sizes': categories}
+
+
+@register.inclusion_tag('product/list_product_by_stocks.html')
+def show_stocks_product():
+    stocks = ProductStock.objects.all()
+    return {'stocks': stocks}
