@@ -79,6 +79,7 @@ class HomeProductView(ProductMixin, ListView):
         # фильтр товаров - self.get_filter_product(ProductFilter)
         # пагинатор товара - self.pagination_product
         context = {
+            'title_head': 'Главная страница',
             'filter': self.get_filter_product(ProductFilter),
             'product_page_obj': self.pagination_product(
                 self.request, self.get_filter_product(ProductFilter)
@@ -115,17 +116,10 @@ class CategoriesView(ProductMixin, ListView):
     allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # фильтр товаров - self.get_filter_product(ProductFilter)
-        # пагинатор товара - self.pagination_product
-        context = {
-            'title_head': self.get_title_head_product(Category, 'category_id'),
-            'filter': self.get_filter_product(ProductFilter),
-            'product_page_obj': self.pagination_product(
-                self.request, self.get_filter_product(ProductFilter)
-            )
-        }
+        context = self.get_data(
+            self.request, Category, 'category_id',
+            ProductFilter
+        )
         return context
 
     def get_queryset(self):
@@ -144,19 +138,10 @@ class BrandsView(ProductMixin, ListView):
     allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # фильтр товаров - self.get_filter_product(ProductFilter)
-        # пагинатор товара - self.pagination_product
-        context = {
-            'title_head': self.get_title_head_product(
-                ProductBrand, 'brand_id'
-            ),
-            'filter': self.get_filter_product(ProductFilter),
-            'product_page_obj': self.pagination_product(
-                self.request, self.get_filter_product(ProductFilter)
-            )
-        }
+        context = self.get_data(
+            self.request, ProductBrand, 'brand_id',
+            ProductFilter
+        )
         return context
 
     def get_queryset(self):
@@ -175,17 +160,10 @@ class SizeProductView(ProductMixin, ListView):
     allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # фильтр товаров - self.get_filter_product(ProductFilter)
-        # пагинатор товара - self.pagination_product
-        context = {
-            'title_head': self.get_title_head_product(ProductSize, 'size_id'),
-            'filter': self.get_filter_product(ProductFilter),
-            'product_page_obj': self.pagination_product(
-                self.request, self.get_filter_product(ProductFilter)
-            )
-        }
+        context = self.get_data(
+            self.request, ProductSize, 'size_id',
+            ProductFilter
+        )
         return context
 
     def get_queryset(self):
@@ -477,19 +455,10 @@ class ProductStocksView(ProductMixin, ListView):
     allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # фильтр товаров - self.get_filter_product(ProductFilter)
-        # пагинатор товара - self.pagination_product
-        context = {
-            'title_head': self.get_title_head_product(
-                ProductStock, 'stock_id'
-            ),
-            'filter': self.get_filter_product(ProductFilter),
-            'product_page_obj': self.pagination_product(
-                self.request, self.get_filter_product(ProductFilter)
-            )
-        }
+        context = self.get_data(
+            self.request, ProductStock, 'stock_id',
+            ProductFilter
+        )
         return context
 
     def get_queryset(self):
