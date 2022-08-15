@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -79,6 +80,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
+    сoupons_user = models.ManyToManyField(
+        'Coupon',
+        verbose_name='Купоны',
+        related_name='сoupons_user',
+        blank=True,
+    )
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -94,3 +101,29 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+
+
+class Coupon(models.Model):
+    """
+    Модель купона
+    """
+    code_сoupon = models.CharField(max_length=50, unique=True)
+    valid_from = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата создания'
+    )
+    valid_to = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Дата обновления купона'
+    )
+    discount_сoupon = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(25000)]
+    )
+    active = models.BooleanField()
+
+    def __str__(self):
+        return str(self.code_сoupon)
+
+    class Meta:
+        verbose_name = 'Coupon'
+        verbose_name_plural = 'Coupons'

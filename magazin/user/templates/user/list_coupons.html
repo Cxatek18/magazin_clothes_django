@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{block.super }} | {{ title_head }}
+{% endblock %}
+
+{% block list_coupons %}
+
+  <h2 class="mb-5 text-center">Ваши купоны - {{ request.user.username }}</h2>
+
+  <div class="container">
+
+    <div class="row">
+
+      {% for coupon in request.user.сoupons_user.all %}
+    
+        <div class="col-sm-3">
+          <div class="card" style="border-color:#FF6600;">
+            <div class="card-body">
+              <h5 class="card-title">Код купона - {{ coupon.code_сoupon }}</h5>
+              <p class="card-text">Скидка - {{coupon.discount_сoupon}} руб.</p>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

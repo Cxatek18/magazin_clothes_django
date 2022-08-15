@@ -6,10 +6,12 @@ from django.views.generic import (
     View,
     DetailView,
     UpdateView,
+    ListView,
 )
 
 from .models import (
     User,
+    Coupon,
 )
 from .forms import (
     UserRegisterForm,
@@ -189,3 +191,21 @@ class UserUpdateInfoView(UpdateView):
     context_object_name = 'user_item'
     success_url = reverse_lazy('home')
     raise_exception = True
+
+
+class ListCouponUserView(ListView):
+    """
+    Вывод списка купонов пользователя
+    """
+    model = Coupon
+    context_object_name = 'coupons'
+    template_name = 'user/list_coupons.html'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title_head'] = 'Список купонов'
+        return context
+
+    def get_queryset(self):
+        return self.request.user.сoupons_user.all

@@ -7,6 +7,7 @@ from .views import (
     UserDetailView,
     SendMessageToTelegramm,
     UserUpdateInfoView,
+    ListCouponUserView,
 )
 
 urlpatterns = [
@@ -30,5 +31,9 @@ urlpatterns = [
     path(
         'update-user-info/<int:pk>/',
         UserUpdateInfoView.as_view(), name='update_user_info',
+    ),
+    path(
+        'list-coupons-list/',
+        ListCouponUserView.as_view(), name='list_coupons_list',
     ),
 ]
