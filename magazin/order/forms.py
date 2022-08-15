@@ -9,6 +9,18 @@ class OrderForm(forms.ModelForm):
     """
     Форма для оформления заказа
     """
+
+    coupon_code = forms.CharField(
+        label='Код купона',
+        widget=forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+        help_text='Можно посмотреть в разделе "Купоны"',
+        required=False,
+    )
+
     class Meta:
         model = Order
         fields = [

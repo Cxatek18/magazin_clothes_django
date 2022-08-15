@@ -122,7 +122,7 @@ class Coupon(models.Model):
     active = models.BooleanField()
 
     def __str__(self):
-        return str(self.code_сoupon)
+        return f'Купон - {self.code_сoupon}, скидка - {self.discount_сoupon}'
 
     class Meta:
         verbose_name = 'Coupon'

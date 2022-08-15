@@ -9,6 +9,9 @@ from django.views.generic import (
 
 from cart.models import Cart
 from product.models import Product
+from user.models import (
+    Coupon,
+)
 from product.permissions import (
     UserAccessMixin
 )
@@ -63,12 +66,17 @@ class OrderAllProductCartView(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+            if form.cleaned_data['coupon_code']:
+                coupon = Coupon.objects.get(
+                    code_сoupon=form.cleaned_data['coupon_code']
+                )
+                order.final_price_order -= coupon.discount_сoupon
             order.save()
             order_conttroller = OrderController()
             order_conttroller.replacing_in_order_with_True(
                 order, cart
             )
-            order_conttroller.subtracting_qty_prod_from_availability(
+            order_conttroller.subtracting_qty_product_from_availability(
                 order, Product
             )
             messages.success(
@@ -120,6 +128,11 @@ class OrderOneProductInCartView(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+            if form.cleaned_data['coupon_code']:
+                coupon = Coupon.objects.get(
+                    code_сoupon=form.cleaned_data['coupon_code']
+                )
+                order.final_price_order -= coupon.discount_сoupon
             order.save()
             order_conttroller = OrderController()
             order_conttroller.replacing_in_order_with_True(

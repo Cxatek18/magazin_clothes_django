@@ -208,4 +208,4 @@ class ListCouponUserView(ListView):
         return context
 
     def get_queryset(self):
-        return self.request.user.сoupons_user.all
+        return self.request.user.сoupons_user.all()
