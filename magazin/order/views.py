@@ -66,11 +66,14 @@ class OrderAllProductCartView(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+
             if form.cleaned_data['coupon_code']:
                 coupon = Coupon.objects.get(
                     code_сoupon=form.cleaned_data['coupon_code']
                 )
                 order.final_price_order -= coupon.discount_сoupon
+                request.user.сoupons_user.remove(coupon)
+
             order.save()
             order_conttroller = OrderController()
             order_conttroller.replacing_in_order_with_True(
@@ -128,11 +131,14 @@ class OrderOneProductInCartView(View):
             order = form.save()
             order_calc = OrderCalculator()
             order_calc.starting_order_calc(order)
+
             if form.cleaned_data['coupon_code']:
                 coupon = Coupon.objects.get(
                     code_сoupon=form.cleaned_data['coupon_code']
                 )
                 order.final_price_order -= coupon.discount_сoupon
+                request.user.сoupons_user.remove(coupon)
+
             order.save()
             order_conttroller = OrderController()
             order_conttroller.replacing_in_order_with_True(

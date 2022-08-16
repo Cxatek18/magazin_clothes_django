@@ -200,7 +200,6 @@ class ListCouponUserView(ListView):
     model = Coupon
     context_object_name = 'coupons'
     template_name = 'user/list_coupons.html'
-    allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

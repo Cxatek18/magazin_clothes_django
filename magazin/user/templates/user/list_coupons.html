@@ -12,18 +12,30 @@
 
     <div class="row">
 
-      {% for coupon in request.user.сoupons_user.all %}
-    
-        <div class="col-sm-3">
-          <div class="card" style="border-color:#FF6600;">
-            <div class="card-body">
-              <h5 class="card-title">Код купона - {{ coupon.code_сoupon }}</h5>
-              <p class="card-text">Скидка - {{coupon.discount_сoupon}} руб.</p>
+      {% if request.user.сoupons_user.all.exists is not False %}
+
+        {% for coupon in request.user.сoupons_user.all %}
+      
+          <div class="col-sm-3">
+            <div class="card" style="border-color:#FF6600;">
+              <div class="card-body">
+                <h5 class="card-title">Код купона - {{ coupon.code_сoupon }}</h5>
+                <p class="card-text">Скидка - {{coupon.discount_сoupon}} руб.</p>
+              </div>
             </div>
           </div>
-        </div>
 
-      {% endfor %}
+        {% endfor %}
+
+      {% else %}
+
+        <div class="card-body col-8 mx-auto text-white" style="background-color: #FF6600;">
+          <p class="card-text text-center fs-4 p-5">
+            Извените но у вас нету купонов
+          </p>
+        </div>
+      
+      {% endif %}
 
     </div>
 
