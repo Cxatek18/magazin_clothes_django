@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 3rd
     'django_filters',
     'bootstrapform',
+    'googlecharts',
 
     # local
     'product',

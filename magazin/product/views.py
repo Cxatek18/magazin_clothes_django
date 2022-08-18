@@ -1,3 +1,5 @@
+import qsstats
+import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -11,6 +13,8 @@ from django.views.generic import (
     TemplateView,
 )
 
+from user.models import User
+from order.models import Order
 from .models import (
     Product,
     Category,
@@ -464,4 +468,33 @@ class ProductStocksView(ProductMixin, ListView):
     def get_queryset(self):
         return Product.objects.filter(
             product_in_stock_id=self.kwargs['stock_id'],
+        )
+
+
+class DisplayingGraphsView(View):
+    """
+    Отрисовка графиков статистики
+    """
+    def get(self, request, *args, **kwargs):
+        end = datetime.date.today()
+        start = end - datetime.timedelta(days=31)
+
+        # Получение статистики заказов за 31 день
+        queryset = Order.objects.all()
+        set_stat = qsstats.QuerySetStats(queryset, date_field='created_at')
+        order_value = set_stat.time_series(start, end, interval='days')
+
+        # Получение статистики регистарций за 31 день
+        queryset = User.objects.all()
+        set_stat = qsstats.QuerySetStats(queryset, date_field='created_at')
+        user_value = set_stat.time_series(start, end, interval='days')
+
+        context = {
+            'title_head': 'Графики',
+            'order_value': order_value,
+            'user_value': user_value,
+        }
+
+        return render(
+            request, 'product/admin_templates/graphs.html', context
         )

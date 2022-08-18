@@ -20,6 +20,7 @@ from .views import (
     FavoriteUserProductsView,
     BuyProductOneClickView,
     ProductStocksView,
+    DisplayingGraphsView,
 )
 
 urlpatterns = [
@@ -95,5 +96,9 @@ urlpatterns = [
     path(
         'stock/v1/<int:stock_id>/',
         ProductStocksView.as_view(), name='stock',
+    ),
+    path(
+        'product/graphs/',
+        DisplayingGraphsView.as_view(), name='view_graphs',
     ),
 ]
